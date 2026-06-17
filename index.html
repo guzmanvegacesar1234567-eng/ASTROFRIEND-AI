@@ -315,60 +315,63 @@ function updateLangButtons(){document.querySelectorAll('[data-lang-btn]').forEac
 // ═══════ STARFIELD ═══════
 (function(){const c=document.getElementById('star-canvas'),ctx=c.getContext('2d');let stars=[],neb=[];function rs(){c.width=innerWidth;c.height=innerHeight;}function init(){stars=[];for(let i=0;i<300;i++)stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.5+0.2,phase:Math.random()*Math.PI*2,speed:Math.random()*0.005+0.002,gold:Math.random()<0.1});neb=[];for(let i=0;i<5;i++)neb.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*120+60,col:Math.random()<0.5?'rgba(107,63,160,':'rgba(30,10,80,'});}let f=0;function draw(){ctx.clearRect(0,0,c.width,c.height);neb.forEach(n=>{const g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r);g.addColorStop(0,n.col+'0.04)');g.addColorStop(1,n.col+'0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fill();});f++;stars.forEach(s=>{const a=0.2+Math.sin(s.phase+f*s.speed)*0.6;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=s.gold?`rgba(201,168,76,${a})`:`rgba(255,255,255,${a})`;ctx.fill();if(s.r>1.1){ctx.strokeStyle=s.gold?`rgba(201,168,76,${a*0.3})`:`rgba(255,255,255,${a*0.3})`;ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(s.x-s.r*2.5,s.y);ctx.lineTo(s.x+s.r*2.5,s.y);ctx.moveTo(s.x,s.y-s.r*2.5);ctx.lineTo(s.x,s.y+s.r*2.5);ctx.stroke();}});requestAnimationFrame(draw);}addEventListener('resize',()=>{rs();init();});rs();init();draw();})();
 
-// ═══════ MOTOR ASTRONÓMICO (VSOP87/ELP2000) ═══════
+// ═══════ MOTOR ASTRONÓMICO ═══════
 function d2r(d){return d*Math.PI/180;}function r2d(r){return r*180/Math.PI;}function norm(d){return((d%360)+360)%360;}
 function signOf(l){return Math.floor(norm(l)/30);}function degIn(l){return norm(l)%30;}function degMin(l){return Math.floor(norm(l)%30);}
 function canonElem(s){return ELEM_INDEX[s%4];}function canonMod(s){return MOD_INDEX[s%3];}
 function julianDay(y,m,d,h,mi,tz){const utH=h+mi/60-tz;let Y=y,M=m,D=d+utH/24;if(M<=2){Y--;M+=12;}const A=Math.floor(Y/100),B=2-A+Math.floor(A/4);return Math.floor(365.25*(Y+4716))+Math.floor(30.6001*(M+1))+D+B-1524.5;}
+
+// ── Sol (VSOP87 truncado) ──
 function sunLon(jd){const T=(jd-2451545)/36525;const L0=norm(280.46646+36000.76983*T+0.0003032*T*T);const M=norm(357.52911+35999.05029*T-0.0001537*T*T);const Mr=d2r(M);const C=(1.914602-0.004817*T-0.000014*T*T)*Math.sin(Mr)+(0.019993-0.000101*T)*Math.sin(2*Mr)+0.000289*Math.sin(3*Mr);const om=norm(125.04-1934.136*T);return norm(L0+C-0.00569-0.00478*Math.sin(d2r(om)));}
+
+// ── Luna (ELP2000 truncado) ──
 function moonLon(jd){const T=(jd-2451545)/36525;const L0=norm(218.3165+481267.8813*T-0.001599*T*T);const M=norm(357.5291+35999.0503*T);const Mp=norm(134.9634+477198.8676*T+0.008997*T*T);const D=norm(297.8502+445267.1115*T-0.0018268*T*T);const F=norm(93.272+483202.0175*T-0.0034029*T*T);const E=1-0.002516*T;return norm(L0+6.2886*Math.sin(d2r(Mp))+1.274*Math.sin(d2r(2*D-Mp))+0.6583*Math.sin(d2r(2*D))+0.2136*Math.sin(d2r(2*Mp))-0.1851*E*Math.sin(d2r(M))+0.1144*Math.sin(d2r(2*F))-0.0588*Math.sin(d2r(2*D-2*Mp))-0.0572*E*Math.sin(d2r(2*D-M-Mp))-0.0533*Math.sin(d2r(2*D+Mp))-0.0459*E*Math.sin(d2r(2*D-M))+0.0427*Math.sin(d2r(3*Mp))+0.0415*E*Math.sin(d2r(Mp+M))+0.0388*Math.sin(d2r(2*D-2*F))+0.036*E*Math.sin(d2r(2*D+M))+0.0328*Math.sin(d2r(D))-0.0307*E*Math.sin(d2r(Mp-M)));}
 function obliq(T){return 23.4392911-0.013004167*T-0.000000164*T*T;}
-function planetLons(jd){const T=(jd-2451545)/36525;
-  const meL=norm(252.2509+149472.6749*T),meM=d2r(norm(174.7948+149472.5153*T));const mercury=norm(meL+23.4405*Math.sin(meM)+2.9818*Math.sin(2*meM)+0.5255*Math.sin(3*meM)+0.1058*Math.sin(4*meM));
-  const veL=norm(181.9798+58517.8156*T),veM=d2r(norm(50.4161+58517.8039*T));const venus=norm(veL+0.7758*Math.sin(veM)+0.0033*Math.sin(2*veM));
-  const maL=norm(355.433+19140.2993*T),maM=d2r(norm(19.373+19140.3006*T));const mars=norm(maL+10.6912*Math.sin(maM)+0.6228*Math.sin(2*maM)+0.0503*Math.sin(3*maM)+0.0046*Math.sin(4*maM));
-  const juL=norm(34.3515+3034.9056*T),juM=d2r(norm(20.9202+3034.9057*T));const jupiter=norm(juL+5.5549*Math.sin(juM)+0.1683*Math.sin(2*juM)+0.0071*Math.sin(3*juM));
-  const saL=norm(50.0775+1222.1138*T),saM=d2r(norm(317.0207+1222.0942*T));const saturn=norm(saL+6.3585*Math.sin(saM)+0.2204*Math.sin(2*saM)+0.0106*Math.sin(3*saM));
-  const urL=norm(314.055+428.4882*T),urM=d2r(norm(142.5905+428.4748*T));const uranus=norm(urL+5.3042*Math.sin(urM)+0.1534*Math.sin(2*urM));
-  const neL=norm(304.3481+218.4656*T),neM=d2r(norm(267.7649+218.4575*T));const neptune=norm(neL+1.0302*Math.sin(neM)+0.0058*Math.sin(2*neM));
-  const plL=norm(238.9508+145.2*T),plM=d2r(norm(35+145.2*T));const pluto=norm(plL+28.315*Math.sin(plM)+4.3408*Math.sin(2*plM));
-  return{mercury,venus,mars,jupiter,saturn,uranus,neptune,pluto};}
-function getPLon(k,jd){if(k==='sol')return sunLon(jd);if(k==='luna')return moonLon(jd);const pl=planetLons(jd);const m={mercurio:'mercury',venus:'venus',marte:'mars',jupiter:'jupiter',saturno:'saturn',urano:'uranus',neptuno:'neptune',pluton:'pluto'};return pl[m[k]]||0;}
+
+// ── PLANETAS GEOCÉNTRICOS (elementos orbitales JPL/NASA) ──
+function solveKepler(M,e){M=d2r(M);let E=M;for(let i=0;i<10;i++){E=E-(E-e*Math.sin(E)-M)/(1-e*Math.cos(E));}return E;}
+function helioRect(el,T){const a=el.a;const e=el.e0+el.e1*T;const I=d2r(el.I0+el.I1*T);const L=norm(el.L0+el.L1*T);const wbar=el.w0+el.w1*T;const omega=el.O0+el.O1*T;const M=norm(L-wbar);const w=d2r(wbar-omega);const Om=d2r(omega);const E=solveKepler(M,e);const xv=a*(Math.cos(E)-e);const yv=a*(Math.sqrt(1-e*e)*Math.sin(E));const r=Math.sqrt(xv*xv+yv*yv);const v=Math.atan2(yv,xv);const xh=r*(Math.cos(Om)*Math.cos(v+w)-Math.sin(Om)*Math.sin(v+w)*Math.cos(I));const yh=r*(Math.sin(Om)*Math.cos(v+w)+Math.cos(Om)*Math.sin(v+w)*Math.cos(I));const zh=r*(Math.sin(v+w)*Math.sin(I));return{x:xh,y:yh,z:zh};}
+const ORBITAL={
+  mercury:{a:0.38709927,e0:0.20563593,e1:0.00001906,I0:7.00497902,I1:-0.00594749,L0:252.25032350,L1:149472.67411175,w0:77.45779628,w1:0.16047689,O0:48.33076593,O1:-0.12534081},
+  venus:{a:0.72333566,e0:0.00677672,e1:-0.00004107,I0:3.39467605,I1:-0.00078890,L0:181.97909950,L1:58517.81538729,w0:131.60246718,w1:0.00268329,O0:76.67984255,O1:-0.27769418},
+  earth:{a:1.00000261,e0:0.01671123,e1:-0.00004392,I0:-0.00001531,I1:-0.01294668,L0:100.46457166,L1:35999.37244981,w0:102.93768193,w1:0.32327364,O0:0.0,O1:0.0},
+  mars:{a:1.52371034,e0:0.09339410,e1:0.00007882,I0:1.84969142,I1:-0.00813131,L0:-4.55343205,L1:19140.30268499,w0:-23.94362959,w1:0.44441088,O0:49.55953891,O1:-0.29257343},
+  jupiter:{a:5.20288700,e0:0.04838624,e1:-0.00013253,I0:1.30439695,I1:-0.00183714,L0:34.39644051,L1:3034.74612775,w0:14.72847983,w1:0.21252668,O0:100.47390909,O1:0.20469106},
+  saturn:{a:9.53667594,e0:0.05386179,e1:-0.00050991,I0:2.48599187,I1:0.00193609,L0:49.95424423,L1:1222.49362201,w0:92.59887831,w1:-0.41897216,O0:113.66242448,O1:-0.28867794},
+  uranus:{a:19.18916464,e0:0.04725744,e1:-0.00004397,I0:0.77263783,I1:-0.00242939,L0:313.23810451,L1:428.48202785,w0:170.95427630,w1:0.40805281,O0:74.01692503,O1:0.04240589},
+  neptune:{a:30.06992276,e0:0.00859048,e1:0.00005105,I0:1.77004347,I1:0.00035372,L0:-55.12002969,L1:218.45945325,w0:44.96476227,w1:-0.32241464,O0:131.78422574,O1:-0.00508664},
+  pluto:{a:39.48211675,e0:0.24882730,e1:-0.00031596,I0:17.14001206,I1:0.00004818,L0:238.92903833,L1:145.20780515,w0:224.06891629,w1:-0.04062942,O0:110.30393684,O1:-0.01183482}
+};
+function geoPlanetLon(key,jd){const T=(jd-2451545.0)/36525;const earth=helioRect(ORBITAL.earth,T);const planet=helioRect(ORBITAL[key],T);const xg=planet.x-earth.x;const yg=planet.y-earth.y;const zg=planet.z-earth.z;return norm(r2d(Math.atan2(yg,xg)));}
+function planetLons(jd){return{mercury:geoPlanetLon('mercury',jd),venus:geoPlanetLon('venus',jd),mars:geoPlanetLon('mars',jd),jupiter:geoPlanetLon('jupiter',jd),saturn:geoPlanetLon('saturn',jd),uranus:geoPlanetLon('uranus',jd),neptune:geoPlanetLon('neptune',jd),pluto:geoPlanetLon('pluto',jd)};}
+function getPLon(k,jd){if(k==='sol')return sunLon(jd);if(k==='luna')return moonLon(jd);const m={mercurio:'mercury',venus:'venus',marte:'mars',jupiter:'jupiter',saturno:'saturn',urano:'uranus',neptuno:'neptune',pluton:'pluto'};return geoPlanetLon(m[k],jd);}
 function isRetro(k,jd){const l1=getPLon(k,jd-0.5),l2=getPLon(k,jd+0.5);let d=l2-l1;if(d>180)d-=360;if(d<-180)d+=360;return d<0;}
 function nnLon(jd){const T=(jd-2451545)/36525;return norm(125.04452-1934.136261*T+0.0020708*T*T);}
 function chLon(jd){const T=(jd-2451545)/36525;return norm(209.15+50.3933*T+4*Math.sin(d2r(77+50.5*T)));}
 function calcAsc(jd,lat,lon){const T=(jd-2451545)/36525;const GMST=norm(280.46061837+360.98564736629*(jd-2451545)+0.000387933*T*T);const LST=norm(GMST+lon);const e=d2r(obliq(T)),R=d2r(LST),L=d2r(lat);const y=-Math.cos(R),x=Math.sin(R)*Math.cos(e)+Math.tan(L)*Math.sin(e);return norm(r2d(Math.atan2(y,x))+180);}
 function calcMC(jd,lon){const T=(jd-2451545)/36525;const GMST=norm(280.46061837+360.98564736629*(jd-2451545)+0.000387933*T*T);const LST=norm(GMST+lon);const e=d2r(obliq(T)),R=d2r(LST);return norm(r2d(Math.atan2(Math.sin(R)*Math.cos(e),Math.cos(R))));}
 function calcHousesPlacidus(jd,lat,lon){const asc=calcAsc(jd,lat,lon),mc=calcMC(jd,lon);const T=(jd-2451545)/36525,e=d2r(obliq(T)),L=d2r(lat);const GMST=norm(280.46061837+360.98564736629*(jd-2451545));const ramc=d2r(norm(GMST+lon));const houses=new Array(12);houses[0]=asc;houses[9]=mc;houses[3]=norm(mc+180);houses[6]=norm(asc+180);
-  function cuspP(f){let ra=ramc+f*Math.PI/2;for(let it=0;it<10;it++){const decl=Math.asin(Math.sin(e)*Math.sin(ra));const tanphi=Math.tan(L)*Math.tan(decl);if(Math.abs(tanphi)>1)break;const H=Math.acos(-tanphi);ra=ramc+f*H;}const lonE=Math.atan2(Math.sin(ra)*Math.cos(e)+Math.tan(d2r(lat))*Math.sin(e)*0,Math.cos(ra));return norm(r2d(Math.atan2(Math.sin(ra)*Math.cos(e),Math.cos(ra))));}
-  // Interpolación intermedia simple para casas 11,12,2,3 (semi-arcos)
-  try{const f3=1/3,f23=2/3;
-    houses[10]=intermediateCusp(ramc,e,L,f3,1);houses[11]=intermediateCusp(ramc,e,L,f23,1);
-    houses[1]=intermediateCusp(ramc,e,L,f3,-1)+0;houses[2]=intermediateCusp(ramc,e,L,f23,-1);
-    houses[1]=norm(intermediateCuspAsc(ramc,e,L,f3));houses[2]=norm(intermediateCuspAsc(ramc,e,L,f23));
-    houses[4]=norm(houses[10]+180);houses[5]=norm(houses[11]+180);houses[7]=norm(houses[1]+180);houses[8]=norm(houses[2]+180);
-  }catch(err){for(let i=0;i<12;i++)houses[i]=norm(asc+i*30);houses[9]=mc;houses[3]=norm(mc+180);}
+  try{houses[10]=intermediateCusp(ramc,e,L,1/3,1);houses[11]=intermediateCusp(ramc,e,L,2/3,1);houses[1]=norm(intermediateCuspAsc(ramc,e,L,1/3));houses[2]=norm(intermediateCuspAsc(ramc,e,L,2/3));houses[4]=norm(houses[10]+180);houses[5]=norm(houses[11]+180);houses[7]=norm(houses[1]+180);houses[8]=norm(houses[2]+180);}catch(err){for(let i=0;i<12;i++)houses[i]=norm(asc+i*30);houses[9]=mc;houses[3]=norm(mc+180);}
   for(let i=0;i<12;i++)if(isNaN(houses[i]))houses[i]=norm(asc+i*30);
   return{houses,asc,mc};}
-function intermediateCusp(ramc,e,L,frac,dir){let ra=ramc+dir*frac*Math.PI/2;for(let it=0;it<8;it++){const decl=Math.asin(Math.sin(e)*Math.sin(ra));let tanphi=Math.tan(L)*Math.tan(decl);if(tanphi>1)tanphi=1;if(tanphi<-1)tanphi=-1;const sa=Math.acos(-tanphi);ra=ramc+dir*frac*sa*2;}return norm(r2d(Math.atan2(Math.sin(ra)*Math.cos(e),Math.cos(ra))));}
-function intermediateCuspAsc(ramc,e,L,frac){const mc=norm(r2d(Math.atan2(Math.sin(ramc)*Math.cos(e),Math.cos(ramc))));const ascRA=ramc+Math.PI;let ra=ramc+Math.PI/2+frac*Math.PI/2;for(let it=0;it<8;it++){const decl=Math.asin(Math.sin(e)*Math.sin(ra));let tanphi=Math.tan(L)*Math.tan(decl);if(tanphi>1)tanphi=1;if(tanphi<-1)tanphi=-1;const sa=Math.acos(-tanphi);ra=ramc+Math.PI/2+frac*(sa);}return norm(r2d(Math.atan2(Math.sin(ra)*Math.cos(e),Math.cos(ra))));}
-function whichHouse(lon,houses){const l=norm(lon);for(let i=0;i<12;i++){const s=norm(houses[i]),e=norm(houses[(i+1)%12]);if(e>s){if(l>=s&&l<e)return i+1;}else{if(l>=s||l<e)return i+1;}}return 1;}
+function intermediateCusp(ramc,e,L,frac,dir){let ra=ramc+dir*frac*Math.PI/2;for(let it=0;it<8;it++){const decl=Math.asin(Math.sin(e)*Math.sin(ra));let tp=Math.tan(L)*Math.tan(decl);if(tp>1)tp=1;if(tp<-1)tp=-1;const sa=Math.acos(-tp);ra=ramc+dir*frac*sa*2;}return norm(r2d(Math.atan2(Math.sin(ra)*Math.cos(e),Math.cos(ra))));}
+function intermediateCuspAsc(ramc,e,L,frac){let ra=ramc+Math.PI/2+frac*Math.PI/2;for(let it=0;it<8;it++){const decl=Math.asin(Math.sin(e)*Math.sin(ra));let tp=Math.tan(L)*Math.tan(decl);if(tp>1)tp=1;if(tp<-1)tp=-1;const sa=Math.acos(-tp);ra=ramc+Math.PI/2+frac*sa;}return norm(r2d(Math.atan2(Math.sin(ra)*Math.cos(e),Math.cos(ra))));}
+function whichHouse(lon,houses){const l=norm(lon);for(let i=0;i<12;i++){const s=norm(houses[i]),en=norm(houses[(i+1)%12]);if(en>s){if(l>=s&&l<en)return i+1;}else{if(l>=s||l<en)return i+1;}}return 1;}
 function fmt(lon,lang){const s=SIGNS_BY_LANG[lang][signOf(lon)],d=Math.floor(degIn(lon)),m=Math.floor((degIn(lon)-d)*60);return `${d}°${String(m).padStart(2,'0')}' ${s}`;}
 const BODIES={sol:{glyph:'☉',color:'#FFD700',es:'Sol',en:'Sun'},luna:{glyph:'☽',color:'#C8D8FF',es:'Luna',en:'Moon'},mercurio:{glyph:'☿',color:'#90C090',es:'Mercurio',en:'Mercury'},venus:{glyph:'♀',color:'#FFB0C8',es:'Venus',en:'Venus'},marte:{glyph:'♂',color:'#FF6050',es:'Marte',en:'Mars'},jupiter:{glyph:'♃',color:'#FFA040',es:'Júpiter',en:'Jupiter'},saturno:{glyph:'♄',color:'#C8A060',es:'Saturno',en:'Saturn'},urano:{glyph:'♅',color:'#50D8FF',es:'Urano',en:'Uranus'},neptuno:{glyph:'♆',color:'#5060FF',es:'Neptuno',en:'Neptune'},pluton:{glyph:'♇',color:'#C060FF',es:'Plutón',en:'Pluto'},nodoNorte:{glyph:'☊',color:'#70D070',es:'Nodo Norte',en:'North Node'},chiron:{glyph:'⚷',color:'#D0A0C0',es:'Quirón',en:'Chiron'}};
 const ASPECTS=[{es:'Conjunción',en:'Conjunction',angle:0,orb:8,type:'neutral',sym:'☌',color:'#D4AF37'},{es:'Sextil',en:'Sextile',angle:60,orb:5,type:'harmonic',sym:'⚹',color:'#60D0FF'},{es:'Cuadratura',en:'Square',angle:90,orb:7,type:'tense',sym:'□',color:'#FF7070'},{es:'Trígono',en:'Trine',angle:120,orb:7,type:'harmonic',sym:'△',color:'#6BDA8A'},{es:'Quincuncio',en:'Quincunx',angle:150,orb:3,type:'neutral',sym:'⚻',color:'#C0A0FF'},{es:'Oposición',en:'Opposition',angle:180,orb:8,type:'tense',sym:'☍',color:'#FF9060'}];
 function calcAspects(pos,lang){const keys=Object.keys(pos).filter(k=>k!=='ascendente'&&k!=='mc');const out=[];for(let i=0;i<keys.length;i++)for(let j=i+1;j<keys.length;j++){let diff=Math.abs(pos[keys[i]].lon-pos[keys[j]].lon);if(diff>180)diff=360-diff;for(const a of ASPECTS){const o=Math.abs(diff-a.angle);if(o<=a.orb)out.push({p1:keys[i],p2:keys[j],name:a[lang],type:a.type,sym:a.sym,color:a.color,orb:parseFloat(o.toFixed(1))});}}return out.sort((a,b)=>a.orb-b.orb);}
 
 function calculateChart(data){const lang=data.lang||'es';const jd=julianDay(data.year,data.month,data.day,data.hour,data.minute,data.tz);const hd=calcHousesPlacidus(jd,data.lat,data.lon);const houses=hd.houses;const pos={};
-  const lons={sol:sunLon(jd),luna:moonLon(jd)};const pl=planetLons(jd);lons.mercurio=pl.mercury;lons.venus=pl.venus;lons.marte=pl.mars;lons.jupiter=pl.jupiter;lons.saturno=pl.saturn;lons.urano=pl.uranus;lons.neptuno=pl.neptune;lons.pluton=pl.pluto;lons.nodoNorte=nnLon(jd);lons.chiron=chLon(jd);
+  const pl=planetLons(jd);const lons={sol:sunLon(jd),luna:moonLon(jd),mercurio:pl.mercury,venus:pl.venus,marte:pl.mars,jupiter:pl.jupiter,saturno:pl.saturn,urano:pl.uranus,neptuno:pl.neptune,pluton:pl.pluto,nodoNorte:nnLon(jd),chiron:chLon(jd)};
   const retroK=['mercurio','venus','marte','jupiter','saturno','urano','neptuno','pluton'];
   Object.keys(BODIES).forEach(k=>{const lon=lons[k],si=signOf(lon);pos[k]={lon,name:BODIES[k][lang],glyph:BODIES[k].glyph,color:BODIES[k].color,sign:si,signName:SIGNS_BY_LANG[lang][si],signGlyph:SIGN_GLYPHS[si],element:ELEMENTS_BY_LANG[lang][si%4],modality:MODALITIES_BY_LANG[lang][si%3],degInSign:degIn(lon),house:whichHouse(lon,houses),formatted:fmt(lon,lang),retro:retroK.includes(k)?isRetro(k,jd):false};});
   const aSi=signOf(hd.asc);pos.ascendente={lon:hd.asc,name:I18n.t('ascendant'),glyph:'Asc',color:'#D4AF37',sign:aSi,signName:SIGNS_BY_LANG[lang][aSi],signGlyph:SIGN_GLYPHS[aSi],element:ELEMENTS_BY_LANG[lang][aSi%4],modality:MODALITIES_BY_LANG[lang][aSi%3],degInSign:degIn(hd.asc),house:1,formatted:fmt(hd.asc,lang)};
   const mSi=signOf(hd.mc);pos.mc={lon:hd.mc,name:lang==='en'?'Midheaven':'Medio Cielo',glyph:'MC',color:'#D4AF37',sign:mSi,signName:SIGNS_BY_LANG[lang][mSi],signGlyph:SIGN_GLYPHS[mSi],element:ELEMENTS_BY_LANG[lang][mSi%4],modality:MODALITIES_BY_LANG[lang][mSi%3],degInSign:degIn(hd.mc),house:10,formatted:fmt(hd.mc,lang)};
   const aspects=calcAspects(pos,lang);
-  const elemCount={Fuego:0,Tierra:0,Aire:0,Agua:0},elemEn={Fire:0,Earth:0,Air:0,Water:0};const modCount={Cardinal:0,Fijo:0,Mutable:0},modEn={Cardinal:0,Fixed:0,Mutable:0};
-  ['sol','luna','mercurio','venus','marte','jupiter','saturno','ascendente'].forEach(k=>{if(pos[k]){const ce=canonElem(pos[k].sign),cm=canonMod(pos[k].sign);elemEn[ce]++;modEn[cm]++;}});
-  // mantener compatibilidad: claves en español
-  elemCount.Fuego=elemEn.Fire;elemCount.Tierra=elemEn.Earth;elemCount.Aire=elemEn.Air;elemCount.Agua=elemEn.Water;modCount.Cardinal=modEn.Cardinal;modCount.Fijo=modEn.Fixed;modCount.Mutable=modEn.Mutable;
+  const elemEn={Fire:0,Earth:0,Air:0,Water:0},modEn={Cardinal:0,Fixed:0,Mutable:0};
+  ['sol','luna','mercurio','venus','marte','jupiter','saturno','ascendente'].forEach(k=>{if(pos[k]){elemEn[canonElem(pos[k].sign)]++;modEn[canonMod(pos[k].sign)]++;}});
+  const elemCount={Fuego:elemEn.Fire,Tierra:elemEn.Earth,Aire:elemEn.Air,Agua:elemEn.Water};const modCount={Cardinal:modEn.Cardinal,Fijo:modEn.Fixed,Mutable:modEn.Mutable};
   const housesF=houses.map(h=>({cusp:h,sign:signOf(h)}));
   return{name:data.name,birth:{...data,jd},ascendant:pos.ascendente,mc:pos.mc,houses:housesF,planets:pos,aspects,elemCount,modCount,lang,_elemEn:elemEn,_modEn:modEn};}
 
