@@ -8,207 +8,74 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --bg-deep: #05051A;
-  --bg-mid: #0A0820;
-  --bg-card: rgba(255,255,255,0.04);
-  --gold: #D4AF37;
-  --gold-dim: rgba(212,175,55,0.3);
-  --gold-glow: rgba(212,175,55,0.15);
-  --violet: #6B3FA0;
-  --violet-light: #9B6FD0;
-  --text: #EEE8FF;
-  --text-dim: rgba(238,232,255,0.55);
-  --border: rgba(212,175,55,0.18);
+  --bg-deep: #05051A; --bg-mid: #0A0820; --bg-card: rgba(255,255,255,0.04);
+  --gold: #D4AF37; --gold-dim: rgba(212,175,55,0.3); --gold-glow: rgba(212,175,55,0.15);
+  --violet: #6B3FA0; --violet-light: #9B6FD0;
+  --text: #EEE8FF; --text-dim: rgba(238,232,255,0.55); --border: rgba(212,175,55,0.18);
 }
 html { font-size: 16px; }
-body {
-  background: var(--bg-deep);
-  color: var(--text);
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-#star-canvas {
-  position: fixed; top: 0; left: 0;
-  width: 100%; height: 100%;
-  pointer-events: none; z-index: 0;
-}
-/* LANDING */
-#landing {
-  position: relative; z-index: 1;
-  min-height: 100vh;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 2rem;
-}
+body { background: var(--bg-deep); color: var(--text); font-family: 'Inter', sans-serif; font-weight: 300; min-height: 100vh; overflow-x: hidden; }
+#star-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+#landing { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; }
 .brand { text-align: center; margin-bottom: 2.5rem; }
-.brand-sigil {
-  font-size: 4rem; line-height: 1;
-  display: block; margin-bottom: 0.8rem;
-  animation: rotateSigil 20s linear infinite;
-}
+.brand-sigil { font-size: 4rem; line-height: 1; display: block; margin-bottom: 0.8rem; animation: rotateSigil 20s linear infinite; }
 @keyframes rotateSigil { to { transform: rotate(360deg); } }
-.brand h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.4rem, 5vw, 4rem);
-  font-weight: 300;
-  letter-spacing: 0.1em;
-  color: var(--gold);
-  text-shadow: 0 0 40px rgba(212,175,55,0.4);
-}
+.brand h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 300; letter-spacing: 0.1em; color: var(--gold); text-shadow: 0 0 40px rgba(212,175,55,0.4); }
 .brand p { margin-top: 0.6rem; font-size: 0.88rem; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
-.form-card {
-  background: rgba(10,8,32,0.85);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 2.5rem;
-  width: 100%; max-width: 540px;
-  backdrop-filter: blur(20px);
-  box-shadow: 0 0 80px rgba(107,63,160,0.2), inset 0 1px 0 rgba(255,255,255,0.06);
-}
-.form-card h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem; font-weight: 400;
-  color: var(--gold); margin-bottom: 2rem;
-  text-align: center; letter-spacing: 0.04em;
-}
+.form-card { background: rgba(10,8,32,0.85); border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem; width: 100%; max-width: 540px; backdrop-filter: blur(20px); box-shadow: 0 0 80px rgba(107,63,160,0.2), inset 0 1px 0 rgba(255,255,255,0.06); }
+.form-card h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--gold); margin-bottom: 2rem; text-align: center; letter-spacing: 0.04em; }
 .field { margin-bottom: 1.2rem; }
 .field label { display: block; font-size: 0.72rem; color: var(--text-dim); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.45rem; }
-.field input, .field select {
-  width: 100%; padding: 0.75rem 1rem;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid var(--border);
-  border-radius: 10px; color: var(--text);
-  font-family: 'Inter', sans-serif; font-size: 0.95rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  outline: none;
-}
-.field input:focus, .field select:focus {
-  border-color: var(--gold);
-  box-shadow: 0 0 0 3px var(--gold-glow);
-}
+.field input, .field select { width: 100%; padding: 0.75rem 1rem; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-family: 'Inter', sans-serif; font-size: 0.95rem; transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+.field input:focus, .field select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-glow); }
 .field input::placeholder { color: var(--text-dim); }
 .field select option { background: #100d30; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.btn-calculate {
-  width: 100%; margin-top: 1.5rem;
-  padding: 1rem 2rem;
-  background: linear-gradient(135deg, #6B3FA0 0%, #3A1870 100%);
-  border: 1px solid var(--gold-dim);
-  border-radius: 10px; color: var(--gold);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.2rem; font-weight: 400;
-  letter-spacing: 0.1em; cursor: pointer;
-  transition: all 0.3s;
-  box-shadow: 0 4px 30px rgba(107,63,160,0.35);
-}
-.btn-calculate:hover {
-  background: linear-gradient(135deg, #8B5FC0 0%, #5A2890 100%);
-  box-shadow: 0 4px 40px rgba(107,63,160,0.6), 0 0 0 1px var(--gold-dim);
-  transform: translateY(-2px);
-}
-/* LOADING */
-#loading {
-  display: none; position: fixed; inset: 0; z-index: 100;
-  background: var(--bg-deep);
-  flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
-}
+.btn-calculate { width: 100%; margin-top: 1.5rem; padding: 1rem 2rem; background: linear-gradient(135deg, #6B3FA0 0%, #3A1870 100%); border: 1px solid var(--gold-dim); border-radius: 10px; color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400; letter-spacing: 0.1em; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 30px rgba(107,63,160,0.35); }
+.btn-calculate:hover { background: linear-gradient(135deg, #8B5FC0 0%, #5A2890 100%); box-shadow: 0 4px 40px rgba(107,63,160,0.6), 0 0 0 1px var(--gold-dim); transform: translateY(-2px); }
+.lang-selector-top { position: absolute; top: 1.5rem; right: 1.5rem; z-index: 10; display: flex; align-items: center; gap: 0.5rem; }
+.lang-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text-dim); padding: 0.35rem 0.7rem; border-radius: 6px; cursor: pointer; font-size: 0.78rem; font-family: 'Inter', sans-serif; letter-spacing: 0.05em; transition: all 0.2s; }
+.lang-btn:hover, .lang-btn.active { border-color: var(--gold); color: var(--gold); }
+.apikey-hint { font-size: 0.7rem; color: var(--text-dim); margin-top: 0.3rem; line-height: 1.4; }
+.apikey-hint a { color: var(--violet-light); }
+#loading { display: none; position: fixed; inset: 0; z-index: 100; background: var(--bg-deep); flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
 #loading.active { display: flex; }
 .loading-orrery { position: relative; width: 160px; height: 160px; }
-.loading-orrery .orbit {
-  position: absolute; border: 1px solid;
-  border-radius: 50%; top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-}
+.loading-orrery .orbit { position: absolute; border: 1px solid; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%,-50%); }
 .o1 { width: 40px; height: 40px; border-color: rgba(212,175,55,0.6); animation: spin1 2s linear infinite; }
 .o2 { width: 80px; height: 80px; border-color: rgba(107,63,160,0.5); animation: spin1 3.5s linear infinite reverse; }
 .o3 { width: 120px; height: 120px; border-color: rgba(212,175,55,0.3); animation: spin1 5s linear infinite; }
 .o4 { width: 158px; height: 158px; border-color: rgba(107,63,160,0.2); animation: spin1 8s linear infinite reverse; }
-.orbit-dot {
-  position: absolute; width: 6px; height: 6px; border-radius: 50%;
-  top: -3px; left: 50%; transform: translateX(-50%);
-}
+.orbit-dot { position: absolute; width: 6px; height: 6px; border-radius: 50%; top: -3px; left: 50%; transform: translateX(-50%); }
 .od1 { background: var(--gold); box-shadow: 0 0 8px var(--gold); }
 .od2 { background: #FF7070; box-shadow: 0 0 8px #FF7070; }
 .od3 { background: #60D0FF; box-shadow: 0 0 8px #60D0FF; }
-.sun-center {
-  position: absolute; width: 20px; height: 20px;
-  background: radial-gradient(circle, #FFE080, #D4AF37);
-  border-radius: 50%;
-  top: 50%; left: 50%; transform: translate(-50%,-50%);
-  box-shadow: 0 0 20px rgba(212,175,55,0.8);
-}
+.sun-center { position: absolute; width: 20px; height: 20px; background: radial-gradient(circle, #FFE080, #D4AF37); border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%,-50%); box-shadow: 0 0 20px rgba(212,175,55,0.8); }
 @keyframes spin1 { to { transform: translate(-50%,-50%) rotate(360deg); } }
-.loading-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.15rem; color: rgba(212,175,55,0.7);
-  letter-spacing: 0.12em; text-align: center;
-}
+.loading-text { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: rgba(212,175,55,0.7); letter-spacing: 0.12em; text-align: center; }
 .loading-sub { font-size: 0.78rem; color: var(--text-dim); letter-spacing: 0.08em; }
-/* APP */
 #app { display: none; position: relative; z-index: 1; min-height: 100vh; }
 #app.active { display: block; }
-.app-header {
-  padding: 1rem 2rem;
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
-  background: rgba(5,5,26,0.9); backdrop-filter: blur(16px);
-  position: sticky; top: 0; z-index: 50;
-}
+.app-header { padding: 1rem 2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: rgba(5,5,26,0.9); backdrop-filter: blur(16px); position: sticky; top: 0; z-index: 50; }
 .app-header .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--gold); font-weight: 300; letter-spacing: 0.06em; }
+.header-right { display: flex; align-items: center; gap: 1rem; }
 .user-name-badge { font-size: 0.8rem; color: var(--text-dim); letter-spacing: 0.08em; }
+.lang-selector { display: flex; align-items: center; gap: 0.35rem; }
 .btn-reset { background: none; border: 1px solid var(--border); color: var(--text-dim); padding: 0.4rem 1rem; border-radius: 6px; cursor: pointer; font-size: 0.8rem; transition: all 0.2s; }
 .btn-reset:hover { border-color: var(--gold); color: var(--gold); }
 .app-layout { display: grid; grid-template-columns: 1fr 400px; gap: 0; height: calc(100vh - 60px); }
-/* LEFT PANEL */
 .left-panel { overflow-y: auto; padding: 2rem; scrollbar-width: thin; scrollbar-color: var(--violet) transparent; }
-/* 3D CHART */
 .chart-section { display: flex; flex-direction: column; align-items: center; margin-bottom: 2.5rem; }
-.section-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1rem; font-weight: 400;
-  color: var(--gold); letter-spacing: 0.12em;
-  margin-bottom: 1.2rem; text-align: center;
-  text-transform: uppercase;
-}
-#chart-container {
-  position: relative; width: 100%; max-width: 480px;
-  perspective: 800px;
-}
-#chart-container canvas {
-  width: 100% !important; height: auto !important;
-  max-width: 480px;
-  filter: drop-shadow(0 0 40px rgba(107,63,160,0.5));
-  transition: transform 0.1s;
-}
-.chart-controls {
-  display: flex; gap: 0.5rem; margin-top: 0.8rem; flex-wrap: wrap; justify-content: center;
-}
-.chart-btn {
-  background: rgba(107,63,160,0.15); border: 1px solid rgba(107,63,160,0.3);
-  color: var(--text-dim); border-radius: 6px; padding: 0.3rem 0.8rem;
-  font-size: 0.75rem; cursor: pointer; transition: all 0.2s;
-}
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 400; color: var(--gold); letter-spacing: 0.12em; margin-bottom: 1.2rem; text-align: center; text-transform: uppercase; }
+#chart-container { position: relative; width: 100%; max-width: 480px; perspective: 800px; }
+#chart-container canvas { width: 100% !important; height: auto !important; max-width: 480px; filter: drop-shadow(0 0 40px rgba(107,63,160,0.5)); transition: transform 0.1s; }
+.chart-controls { display: flex; gap: 0.5rem; margin-top: 0.8rem; flex-wrap: wrap; justify-content: center; }
+.chart-btn { background: rgba(107,63,160,0.15); border: 1px solid rgba(107,63,160,0.3); color: var(--text-dim); border-radius: 6px; padding: 0.3rem 0.8rem; font-size: 0.75rem; cursor: pointer; transition: all 0.2s; }
 .chart-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
 .chart-btn.active { background: rgba(212,175,55,0.15); border-color: var(--gold-dim); color: var(--gold); }
-/* SUMMARY CARDS */
-.trinity-cards {
-  display: grid; grid-template-columns: repeat(3,1fr); gap: 0.8rem;
-  margin-bottom: 2rem;
-}
-.trinity-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px; padding: 1rem;
-  text-align: center; cursor: pointer;
-  transition: all 0.25s; position: relative; overflow: hidden;
-}
-.trinity-card::before {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(circle at 50% 0%, rgba(212,175,55,0.08), transparent 70%);
-  opacity: 0; transition: opacity 0.3s;
-}
+.trinity-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.8rem; margin-bottom: 2rem; }
+.trinity-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; text-align: center; cursor: pointer; transition: all 0.25s; position: relative; overflow: hidden; }
+.trinity-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, rgba(212,175,55,0.08), transparent 70%); opacity: 0; transition: opacity 0.3s; }
 .trinity-card:hover::before { opacity: 1; }
 .trinity-card:hover { border-color: var(--gold-dim); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
 .tc-glyph { font-size: 2rem; margin-bottom: 0.4rem; display: block; }
@@ -217,21 +84,9 @@ body {
 .tc-detail { font-size: 0.72rem; color: var(--text-dim); }
 .tc-expand { font-size: 0.65rem; color: var(--gold); margin-top: 0.4rem; opacity: 0.7; }
 .trinity-card:hover .tc-expand { opacity: 1; }
-/* MODAL */
-.modal-overlay {
-  display: none; position: fixed; inset: 0; z-index: 200;
-  background: rgba(5,5,26,0.92); backdrop-filter: blur(10px);
-  align-items: center; justify-content: center; padding: 1.5rem;
-}
+.modal-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(5,5,26,0.92); backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 1.5rem; }
 .modal-overlay.active { display: flex; }
-.modal-box {
-  background: #0D0A28;
-  border: 1px solid var(--border);
-  border-radius: 20px; padding: 2rem;
-  width: 100%; max-width: 600px; max-height: 85vh; overflow-y: auto;
-  box-shadow: 0 0 60px rgba(107,63,160,0.3);
-  scrollbar-width: thin; scrollbar-color: var(--violet) transparent;
-}
+.modal-box { background: #0D0A28; border: 1px solid var(--border); border-radius: 20px; padding: 2rem; width: 100%; max-width: 600px; max-height: 85vh; overflow-y: auto; box-shadow: 0 0 60px rgba(107,63,160,0.3); scrollbar-width: thin; scrollbar-color: var(--violet) transparent; }
 .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
 .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--gold); font-weight: 400; }
 .modal-close { background: none; border: 1px solid var(--border); color: var(--text-dim); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1rem; transition: all 0.2s; }
@@ -239,29 +94,18 @@ body {
 .modal-section { margin-bottom: 1.4rem; }
 .modal-section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: var(--gold); margin-bottom: 0.6rem; }
 .modal-text { font-size: 0.87rem; line-height: 1.75; color: var(--text-dim); }
-.modality-badge {
-  display: inline-block; padding: 0.25rem 0.8rem;
-  border-radius: 20px; font-size: 0.75rem; font-weight: 500;
-  margin-bottom: 0.8rem;
-}
+.modality-badge { display: inline-block; padding: 0.25rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 500; margin-bottom: 0.8rem; }
 .badge-cardinal { background: rgba(220,80,80,0.15); border: 1px solid rgba(220,80,80,0.35); color: #E07070; }
 .badge-fixed { background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.35); color: var(--gold); }
 .badge-mutable { background: rgba(107,63,160,0.15); border: 1px solid rgba(107,63,160,0.35); color: var(--violet-light); }
-/* ELEMENTS & MODALITIES STATS */
 .stats-bars { display: grid; gap: 0.6rem; margin-top: 0.8rem; }
 .stat-row { display: flex; align-items: center; gap: 0.8rem; }
 .stat-label { font-size: 0.75rem; color: var(--text-dim); width: 70px; flex-shrink: 0; }
 .stat-bar-bg { flex: 1; height: 6px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden; }
 .stat-bar-fill { height: 100%; border-radius: 3px; transition: width 0.8s ease; }
 .stat-count { font-size: 0.75rem; color: var(--text-dim); width: 20px; text-align: right; }
-/* PLANETS */
 .planets-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.7rem; margin-bottom: 2rem; }
-.planet-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 10px; padding: 0.75rem 1rem;
-  transition: all 0.2s; cursor: default;
-}
+.planet-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 0.75rem 1rem; transition: all 0.2s; cursor: default; }
 .planet-card:hover { border-color: var(--gold-dim); box-shadow: 0 0 20px rgba(212,175,55,0.08); }
 .planet-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem; }
 .planet-glyph { font-size: 1.25rem; line-height: 1; }
@@ -269,14 +113,12 @@ body {
 .planet-position { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; color: var(--text); }
 .planet-meta { font-size: 0.72rem; color: var(--text-dim); margin-top: 0.1rem; }
 .retro-badge { display: inline-block; font-size: 0.62rem; background: rgba(220,80,80,0.15); color: #E07070; border: 1px solid rgba(220,80,80,0.3); border-radius: 4px; padding: 0.08rem 0.3rem; margin-left: 0.3rem; }
-/* HOUSES */
 .houses-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-bottom: 2rem; }
 .house-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem; text-align: center; cursor: pointer; transition: all 0.2s; }
 .house-item:hover { border-color: var(--gold-dim); }
 .house-num { font-size: 0.65rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
 .house-sign { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; color: var(--text); }
 .house-deg { font-size: 0.65rem; color: var(--text-dim); }
-/* ASPECTS */
 .aspects-list { margin-bottom: 2rem; }
 .aspect-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.5rem 0.8rem; border-radius: 6px; margin-bottom: 0.3rem; background: var(--bg-card); border: 1px solid transparent; font-size: 0.83rem; }
 .aspect-item.harmonic { border-color: rgba(80,140,220,0.2); }
@@ -286,18 +128,11 @@ body {
 .aspect-name { color: var(--text-dim); font-size: 0.72rem; min-width: 85px; }
 .aspect-planets { color: var(--text); flex: 1; }
 .aspect-orb { color: var(--text-dim); font-size: 0.72rem; }
-/* INTERP */
 .interp-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
 .interp-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--gold); margin-bottom: 0.7rem; }
 .interp-text { font-size: 0.87rem; line-height: 1.75; color: var(--text-dim); }
-.expand-btn {
-  display: inline-block; margin-top: 0.8rem;
-  background: rgba(107,63,160,0.15); border: 1px solid rgba(107,63,160,0.3);
-  color: var(--violet-light); border-radius: 6px; padding: 0.3rem 0.8rem;
-  font-size: 0.75rem; cursor: pointer; transition: all 0.2s;
-}
+.expand-btn { display: inline-block; margin-top: 0.8rem; background: rgba(107,63,160,0.15); border: 1px solid rgba(107,63,160,0.3); color: var(--violet-light); border-radius: 6px; padding: 0.3rem 0.8rem; font-size: 0.75rem; cursor: pointer; transition: all 0.2s; }
 .expand-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
-/* CHAT */
 .chat-panel { border-left: 1px solid var(--border); display: flex; flex-direction: column; background: rgba(5,5,26,0.7); backdrop-filter: blur(16px); }
 .chat-header { padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.8rem; }
 .selene-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--violet), #2A1060); border: 1px solid var(--gold-dim); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; box-shadow: 0 0 16px rgba(107,63,160,0.5); }
@@ -330,88 +165,54 @@ body {
 .btn-send { background: linear-gradient(135deg, var(--violet), #4A2080); border: 1px solid var(--gold-dim); color: var(--gold); border-radius: 10px; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: all 0.2s; flex-shrink: 0; }
 .btn-send:hover { background: linear-gradient(135deg, #8B5FC0, #5A30A0); box-shadow: 0 0 20px rgba(107,63,160,0.5); }
 .btn-send:disabled { opacity: 0.4; cursor: not-allowed; }
-@media (max-width: 960px) {
-  .app-layout { grid-template-columns: 1fr; height: auto; }
-  .chat-panel { border-left: none; border-top: 1px solid var(--border); height: 70vh; min-height: 500px; }
-  .left-panel { height: auto; }
-}
-@media (max-width: 580px) {
-  .form-card { padding: 1.5rem; }
-  .field-row { grid-template-columns: 1fr; }
-  .trinity-cards { grid-template-columns: 1fr; }
-  .houses-grid { grid-template-columns: repeat(3, 1fr); }
-  .planets-grid { grid-template-columns: 1fr 1fr; }
-}
+@media (max-width: 960px) { .app-layout { grid-template-columns: 1fr; height: auto; } .chat-panel { border-left: none; border-top: 1px solid var(--border); height: 70vh; min-height: 500px; } .left-panel { height: auto; } }
+@media (max-width: 580px) { .form-card { padding: 1.5rem; } .field-row { grid-template-columns: 1fr; } .trinity-cards { grid-template-columns: 1fr; } .houses-grid { grid-template-columns: repeat(3, 1fr); } .planets-grid { grid-template-columns: 1fr 1fr; } }
 </style>
 </head>
 <body>
 <canvas id="star-canvas"></canvas>
 
-<!-- LANDING -->
 <section id="landing">
+  <div class="lang-selector-top">
+    <button class="lang-btn" data-lang-btn="es" onclick="switchLanguage('es')">ES</button>
+    <span style="opacity:0.3">|</span>
+    <button class="lang-btn" data-lang-btn="en" onclick="switchLanguage('en')">EN</button>
+  </div>
   <div class="brand">
     <span class="brand-sigil">⊕</span>
-    <h1>Astrofriend</h1>
-    <p>Tu amigo astrólogo personal con IA</p>
+    <h1 data-i18n="app_name">Astrofriend</h1>
+    <p data-i18n="tagline">Tu amigo astrólogo personal con IA</p>
   </div>
   <div class="form-card">
-    <h2>Ingresa tus datos de nacimiento</h2>
-    <div class="field">
-      <label>Nombre completo</label>
-      <input type="text" id="f-name" placeholder="Tu nombre" autocomplete="name">
-    </div>
+    <h2 data-i18n="form_title">Ingresa tus datos de nacimiento</h2>
+    <div class="field"><label data-i18n="full_name">Nombre completo</label><input type="text" id="f-name" data-i18n-placeholder="name_placeholder" placeholder="Tu nombre"></div>
     <div class="field-row">
-      <div class="field">
-        <label>Fecha de nacimiento</label>
-        <input type="date" id="f-date">
-      </div>
-      <div class="field">
-        <label>Hora de nacimiento</label>
-        <input type="time" id="f-time" placeholder="HH:MM">
-      </div>
+      <div class="field"><label data-i18n="birth_date">Fecha de nacimiento</label><input type="date" id="f-date"></div>
+      <div class="field"><label data-i18n="birth_time">Hora de nacimiento</label><input type="time" id="f-time"></div>
     </div>
-    <div class="field">
-      <label>Ciudad de nacimiento</label>
-      <input type="text" id="f-city" placeholder="Ej: Bogotá, Cartagena, Madrid...">
-    </div>
+    <div class="field"><label data-i18n="birth_city">Ciudad de nacimiento</label><input type="text" id="f-city" data-i18n-placeholder="city_placeholder" placeholder="Ej: Bogotá, Madrid..."></div>
     <div class="field-row">
-      <div class="field">
-        <label>Latitud</label>
-        <input type="number" id="f-lat" placeholder="Ej: 4.7110" step="0.0001">
-      </div>
-      <div class="field">
-        <label>Longitud</label>
-        <input type="number" id="f-lon" placeholder="Ej: -74.0721" step="0.0001">
-      </div>
+      <div class="field"><label data-i18n="latitude">Latitud</label><input type="number" id="f-lat" placeholder="4.7110" step="0.0001"></div>
+      <div class="field"><label data-i18n="longitude">Longitud</label><input type="number" id="f-lon" placeholder="-74.0721" step="0.0001"></div>
     </div>
-    <div class="field">
-      <label>Zona horaria (UTC offset)</label>
+    <div class="field"><label data-i18n="timezone">Zona horaria (UTC offset)</label>
       <select id="f-tz">
-        <option value="-12">UTC-12</option><option value="-11">UTC-11</option>
-        <option value="-10">UTC-10</option><option value="-9">UTC-9</option>
-        <option value="-8">UTC-8 (Los Angeles)</option>
-        <option value="-7">UTC-7 (Denver)</option>
-        <option value="-6">UTC-6 (Ciudad de México)</option>
-        <option value="-5" selected>UTC-5 (Bogotá, Lima, NY)</option>
-        <option value="-4">UTC-4 (Santiago, Caracas)</option>
-        <option value="-3">UTC-3 (Buenos Aires, São Paulo)</option>
-        <option value="-2">UTC-2</option><option value="-1">UTC-1</option>
-        <option value="0">UTC+0 (Londres)</option>
-        <option value="1">UTC+1 (Madrid, París)</option>
-        <option value="2">UTC+2 (Atenas)</option>
-        <option value="3">UTC+3 (Moscú)</option>
-        <option value="5.5">UTC+5:30 (India)</option>
-        <option value="8">UTC+8 (Pekín)</option>
-        <option value="9">UTC+9 (Tokio)</option>
-        <option value="10">UTC+10 (Sídney)</option>
-        <option value="12">UTC+12</option>
+        <option value="-12">UTC-12</option><option value="-11">UTC-11</option><option value="-10">UTC-10</option><option value="-9">UTC-9</option>
+        <option value="-8">UTC-8 (Los Angeles)</option><option value="-7">UTC-7 (Denver)</option><option value="-6">UTC-6 (México)</option>
+        <option value="-5" selected>UTC-5 (Bogotá, Lima, NY)</option><option value="-4">UTC-4 (Santiago)</option><option value="-3">UTC-3 (Buenos Aires)</option>
+        <option value="-2">UTC-2</option><option value="-1">UTC-1</option><option value="0">UTC+0 (Londres)</option>
+        <option value="1">UTC+1 (Madrid)</option><option value="2">UTC+2 (Atenas)</option><option value="3">UTC+3 (Moscú)</option>
+        <option value="5.5">UTC+5:30 (India)</option><option value="8">UTC+8 (Pekín)</option><option value="9">UTC+9 (Tokio)</option>
+        <option value="10">UTC+10 (Sídney)</option><option value="12">UTC+12</option>
       </select>
     </div>
-    <button class="btn-calculate" onclick="startCalculation()">✦ Calcular mi Carta Natal</button>
+    <div class="field"><label data-i18n="apikey_label">OpenAI API Key (opcional, para el chat)</label><input type="password" id="f-apikey" placeholder="sk-...">
+      <div class="apikey-hint" data-i18n="apikey_hint">Tu clave se guarda solo en tu navegador. Obtén una en platform.openai.com/api-keys</div>
+    </div>
+    <button class="btn-calculate" data-i18n="calculate_chart" onclick="startCalculation()">✦ Calcular mi Carta Natal</button>
   </div>
 </section>
 
-<!-- LOADING -->
 <div id="loading">
   <div class="loading-orrery">
     <div class="sun-center"></div>
@@ -420,98 +221,66 @@ body {
     <div class="orbit o3"><div class="orbit-dot od3"></div></div>
     <div class="orbit o4"></div>
   </div>
-  <p class="loading-text">Trazando los cielos de tu nacimiento…</p>
-  <p class="loading-sub">Calculando posiciones planetarias precisas</p>
+  <p class="loading-text" data-i18n="loading_title">Trazando los cielos de tu nacimiento…</p>
+  <p class="loading-sub" data-i18n="loading_sub">Calculando posiciones planetarias</p>
 </div>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
   <div class="modal-box" id="modal-box">
-    <div class="modal-header">
-      <div class="modal-title" id="modal-title">Detalle</div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
+    <div class="modal-header"><div class="modal-title" id="modal-title">Detalle</div><button class="modal-close" onclick="closeModal()">✕</button></div>
     <div id="modal-content"></div>
   </div>
 </div>
 
-<!-- APP -->
 <div id="app">
   <header class="app-header">
     <div class="logo">✦ Astrofriend</div>
-    <span class="user-name-badge" id="header-name"></span>
-    <button class="btn-reset" onclick="resetApp()">← Nueva carta</button>
+    <div class="header-right">
+      <span class="user-name-badge" id="header-name"></span>
+      <div class="lang-selector">
+        <button class="lang-btn" data-lang-btn="es" onclick="switchLanguage('es')">ES</button>
+        <button class="lang-btn" data-lang-btn="en" onclick="switchLanguage('en')">EN</button>
+      </div>
+      <button class="btn-reset" data-i18n="new_chart" onclick="resetApp()">← Nueva carta</button>
+    </div>
   </header>
   <div class="app-layout">
     <div class="left-panel">
-
-      <!-- TRINITY -->
       <div class="trinity-cards" id="trinity-cards"></div>
-
-      <!-- WHEEL -->
       <div class="chart-section">
-        <p class="section-title">Rueda Natal 3D</p>
-        <div id="chart-container">
-          <canvas id="natal-canvas" width="480" height="480"></canvas>
-        </div>
+        <p class="section-title" data-i18n="natal_wheel">Rueda Natal 3D</p>
+        <div id="chart-container"><canvas id="natal-canvas" width="480" height="480"></canvas></div>
         <div class="chart-controls">
-          <button class="chart-btn active" id="btn-2d" onclick="setChartMode('2d')">Plano</button>
-          <button class="chart-btn" id="btn-3d" onclick="setChartMode('3d')">3D</button>
-          <button class="chart-btn" onclick="downloadChart()">⤓ Descargar</button>
+          <button class="chart-btn active" id="btn-2d" data-i18n="flat" onclick="setChartMode('2d')">Plano</button>
+          <button class="chart-btn" id="btn-3d" data-i18n="dim3d" onclick="setChartMode('3d')">3D</button>
+          <button class="chart-btn" data-i18n="download" onclick="downloadChart()">⤓ Descargar</button>
         </div>
       </div>
-
-      <!-- ELEMENTS & MODALITIES -->
-      <p class="section-title">Elementos y Modalidades</p>
+      <p class="section-title" data-i18n="elements_modalities">Elementos y Modalidades</p>
       <div id="elem-modal-section" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;"></div>
-
-      <!-- PLANETS -->
-      <p class="section-title">Posiciones Planetarias</p>
+      <p class="section-title" data-i18n="planetary_positions">Posiciones Planetarias</p>
       <div class="planets-grid" id="planets-grid"></div>
-
-      <!-- HOUSES -->
-      <p class="section-title">Las 12 Casas Astrológicas</p>
+      <p class="section-title" data-i18n="houses_title">Las 12 Casas</p>
       <div class="houses-grid" id="houses-grid"></div>
-
-      <!-- ASPECTS -->
-      <p class="section-title">Aspectos Principales</p>
+      <p class="section-title" data-i18n="main_aspects">Aspectos Principales</p>
       <div class="aspects-list" id="aspects-list"></div>
-
-      <!-- INTERPRETATIONS -->
-      <p class="section-title">Interpretación de tu Carta</p>
+      <p class="section-title" data-i18n="interpretation">Interpretación de tu Carta</p>
       <div id="interpretations"></div>
-
     </div>
-
-    <!-- CHAT -->
     <div class="chat-panel">
       <div class="chat-header">
         <div class="selene-avatar">🌙</div>
         <div class="selene-info">
-          <div class="name">Selene — Astróloga IA</div>
-          <div class="status"><span class="status-dot"></span> En línea</div>
+          <div class="name" data-i18n="selene_name">Selene — Astróloga IA</div>
+          <div class="status"><span class="status-dot"></span> <span data-i18n="online">En línea</span></div>
         </div>
       </div>
       <div class="chat-messages" id="chat-messages">
-        <div class="typing-indicator" id="typing">
-          <div class="typing-dot"></div>
-          <div class="typing-dot"></div>
-          <div class="typing-dot"></div>
-        </div>
+        <div class="typing-indicator" id="typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>
       </div>
-      <div class="suggestions" id="suggestions">
-        <span class="suggestion-chip" onclick="sendSuggestion(this)">¿Cuál es mi propósito de vida?</span>
-        <span class="suggestion-chip" onclick="sendSuggestion(this)">¿Cómo soy en el amor?</span>
-        <span class="suggestion-chip" onclick="sendSuggestion(this)">Háblame de mis talentos</span>
-        <span class="suggestion-chip" onclick="sendSuggestion(this)">¿Mi desafío kármico?</span>
-        <span class="suggestion-chip" onclick="sendSuggestion(this)">¿Qué dice mi ascendente?</span>
-        <span class="suggestion-chip" onclick="sendSuggestion(this)">¿Cómo manejo las emociones?</span>
-        <span class="suggestion-chip" onclick="sendSuggestion(this)">Mis fortalezas y debilidades</span>
-      </div>
+      <div class="suggestions" id="suggestions"></div>
       <div class="chat-input-area">
-        <textarea class="chat-textarea" id="chat-input" placeholder="Pregunta sobre tu carta natal…" rows="1"
-          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}"
-          oninput="autoResize(this)"></textarea>
+        <textarea class="chat-textarea" id="chat-input" data-i18n-placeholder="chat_placeholder" placeholder="Pregunta sobre tu carta natal…" rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}" oninput="autoResize(this)"></textarea>
         <button class="btn-send" id="btn-send" onclick="sendMessage()">➤</button>
       </div>
     </div>
@@ -519,1077 +288,138 @@ body {
 </div>
 
 <script>
-// ═══════════════════════════════════════════
-// STARFIELD
-// ═══════════════════════════════════════════
-(function(){
-  const c=document.getElementById('star-canvas');
-  const ctx=c.getContext('2d');
-  let stars=[], nebulas=[];
-  function resize(){ c.width=innerWidth; c.height=innerHeight; }
-  function init(){
-    stars=[];
-    for(let i=0;i<300;i++) stars.push({
-      x:Math.random()*c.width, y:Math.random()*c.height,
-      r:Math.random()*1.5+0.2, phase:Math.random()*Math.PI*2,
-      speed:Math.random()*0.005+0.002,
-      color:Math.random()<0.1?'#C9A84C':'#ffffff'
-    });
-    nebulas=[];
-    for(let i=0;i<5;i++) nebulas.push({
-      x:Math.random()*c.width, y:Math.random()*c.height,
-      r:Math.random()*120+60,
-      color:Math.random()<0.5?'rgba(107,63,160,':'rgba(30,10,80,'
-    });
-  }
-  let frame=0;
-  function draw(){
-    ctx.clearRect(0,0,c.width,c.height);
-    nebulas.forEach(n=>{
-      const g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r);
-      g.addColorStop(0,n.color+'0.04)');
-      g.addColorStop(1,n.color+'0)');
-      ctx.fillStyle=g; ctx.beginPath();
-      ctx.arc(n.x,n.y,n.r,0,Math.PI*2); ctx.fill();
-    });
-    frame++;
-    stars.forEach(s=>{
-      const alpha=0.2+Math.sin(s.phase+frame*s.speed)*0.6;
-      ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-      ctx.fillStyle=s.color.includes('C9')?`rgba(201,168,76,${alpha})`:`rgba(255,255,255,${alpha})`;
-      ctx.fill();
-      if(s.r>1.1){
-        ctx.strokeStyle=s.color.includes('C9')?`rgba(201,168,76,${alpha*0.3})`:`rgba(255,255,255,${alpha*0.3})`;
-        ctx.lineWidth=0.5;
-        ctx.beginPath(); ctx.moveTo(s.x-s.r*2.5,s.y); ctx.lineTo(s.x+s.r*2.5,s.y);
-        ctx.moveTo(s.x,s.y-s.r*2.5); ctx.lineTo(s.x,s.y+s.r*2.5);
-        ctx.stroke();
-      }
-    });
-    requestAnimationFrame(draw);
-  }
-  window.addEventListener('resize',()=>{ resize(); init(); });
-  resize(); init(); draw();
-})();
-
-// ═══════════════════════════════════════════
-// ASTROLOGICAL ENGINE — HIGH PRECISION
-// Uses VSOP87-simplified formulas matching carta-natal.es approach
-// ═══════════════════════════════════════════
-const SIGNS=['Aries','Tauro','Géminis','Cáncer','Leo','Virgo',
-             'Libra','Escorpio','Sagitario','Capricornio','Acuario','Piscis'];
+// ═══════ TRADUCCIONES ═══════
+const TRANSLATIONS={
+  es:{app_name:"Astrofriend",tagline:"Tu amigo astrólogo personal con IA",form_title:"Ingresa tus datos de nacimiento",full_name:"Nombre completo",name_placeholder:"Tu nombre",birth_date:"Fecha de nacimiento",birth_time:"Hora de nacimiento",birth_city:"Ciudad de nacimiento",city_placeholder:"Ej: Bogotá, Madrid...",latitude:"Latitud",longitude:"Longitud",timezone:"Zona horaria (UTC offset)",apikey_label:"OpenAI API Key (opcional, para el chat)",apikey_hint:"Tu clave se guarda solo en tu navegador. Obtén una en platform.openai.com/api-keys",calculate_chart:"✦ Calcular mi Carta Natal",loading_title:"Trazando los cielos de tu nacimiento…",loading_sub:"Calculando posiciones planetarias",new_chart:"← Nueva carta",natal_wheel:"Rueda Natal 3D",flat:"Plano",dim3d:"3D",download:"⤓ Descargar",elements_modalities:"Elementos y Modalidades",elements:"Elementos",modalities:"Modalidades",planetary_positions:"Posiciones Planetarias",houses_title:"Las 12 Casas Astrológicas",main_aspects:"Aspectos Principales",interpretation:"Interpretación de tu Carta",selene_name:"Selene — Astróloga IA",online:"En línea",chat_placeholder:"Pregunta sobre tu carta natal…",error_no_date:"Por favor ingresa tu fecha de nacimiento",error_connection:"Hubo un error al conectar. Verifica tu API key.",error_nokey:"Configura tu OpenAI API Key al crear la carta para usar el chat. Mientras tanto, puedo darte interpretaciones básicas.",expand_info:"✦ Ampliar información",house:"Casa",sun:"Sol",moon:"Luna",ascendant:"Ascendente",keywords_label:"Palabras clave",strengths_label:"Fortalezas",challenges_label:"Desafíos",soul_label:"Propósito del alma",archetype_label:"Arquetipo",life_area:"Área de vida",cusp:"Cúspide",planets_in_house:"Planetas en esta casa",no_planets:"No hay planetas en esta casa.",your_purpose:"Tu Propósito",your_inner_world:"Tu Mundo Interior",your_presence:"Tu Presencia",elemental_profile:"Perfil Elemental y Modal",you_label:"Tú",modality:"Modalidad",element:"Elemento",suggestions:["¿Cuál es mi propósito de vida?","¿Cómo soy en el amor?","Háblame de mis talentos","¿Mi desafío kármico?","¿Qué dice mi ascendente?","¿Cómo manejo las emociones?"]},
+  en:{app_name:"Astrofriend",tagline:"Your personal AI astrologer friend",form_title:"Enter your birth details",full_name:"Full name",name_placeholder:"Your name",birth_date:"Birth date",birth_time:"Birth time",birth_city:"Birth city",city_placeholder:"E.g: New York, London...",latitude:"Latitude",longitude:"Longitude",timezone:"Time zone (UTC offset)",apikey_label:"OpenAI API Key (optional, for chat)",apikey_hint:"Your key is stored only in your browser. Get one at platform.openai.com/api-keys",calculate_chart:"✦ Calculate my Birth Chart",loading_title:"Tracing the skies of your birth…",loading_sub:"Calculating planetary positions",new_chart:"← New chart",natal_wheel:"3D Natal Wheel",flat:"Flat",dim3d:"3D",download:"⤓ Download",elements_modalities:"Elements and Modalities",elements:"Elements",modalities:"Modalities",planetary_positions:"Planetary Positions",houses_title:"The 12 Astrological Houses",main_aspects:"Main Aspects",interpretation:"Your Chart Interpretation",selene_name:"Selene — AI Astrologer",online:"Online",chat_placeholder:"Ask about your birth chart…",error_no_date:"Please enter your birth date",error_connection:"Connection error. Check your API key.",error_nokey:"Set your OpenAI API Key when creating the chart to use chat. Meanwhile, I can give basic interpretations.",expand_info:"✦ Expand info",house:"House",sun:"Sun",moon:"Moon",ascendant:"Ascendant",keywords_label:"Keywords",strengths_label:"Strengths",challenges_label:"Challenges",soul_label:"Soul purpose",archetype_label:"Archetype",life_area:"Life area",cusp:"Cusp",planets_in_house:"Planets in this house",no_planets:"No planets in this house.",your_purpose:"Your Purpose",your_inner_world:"Your Inner World",your_presence:"Your Presence",elemental_profile:"Elemental & Modal Profile",you_label:"You",modality:"Modality",element:"Element",suggestions:["What is my life purpose?","How am I in love?","Tell me about my talents","What is my karmic challenge?","What does my ascendant say?","How do I handle emotions?"]}
+};
+const SIGNS_BY_LANG={es:['Aries','Tauro','Géminis','Cáncer','Leo','Virgo','Libra','Escorpio','Sagitario','Capricornio','Acuario','Piscis'],en:['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces']};
+const ELEMENTS_BY_LANG={es:['Fuego','Tierra','Aire','Agua'],en:['Fire','Earth','Air','Water']};
+const MODALITIES_BY_LANG={es:['Cardinal','Fijo','Mutable'],en:['Cardinal','Fixed','Mutable']};
+const ELEM_INDEX=['Fire','Earth','Air','Water'],MOD_INDEX=['Cardinal','Fixed','Mutable'];
+const ELEM_COLORS={Fire:'#FF6B4A',Earth:'#8B7355',Air:'#87CEEB',Water:'#4A90D9'};
+const MOD_COLORS={Cardinal:'#E07070',Fixed:'#D4AF37',Mutable:'#9B6FD0'};
 const SIGN_GLYPHS=['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
-const SIGN_ELEMENTS=['Fuego','Tierra','Aire','Agua','Fuego','Tierra',
-                      'Aire','Agua','Fuego','Tierra','Aire','Agua'];
-const SIGN_MODALITIES=['Cardinal','Fijo','Mutable','Cardinal','Fijo','Mutable',
-                        'Cardinal','Fijo','Mutable','Cardinal','Fijo','Mutable'];
-const ELEM_COLORS={Fuego:'#FF6B4A',Tierra:'#8B7355',Aire:'#87CEEB',Agua:'#4A90D9'};
-const MOD_COLORS={Cardinal:'#E07070',Fijo:'#D4AF37',Mutable:'#9B6FD0'};
-
-function d2r(d){ return d*Math.PI/180; }
-function r2d(r){ return r*180/Math.PI; }
-function norm(d){ return ((d%360)+360)%360; }
-
-// Precise Julian Day with UT conversion
-function julianDay(y,m,d,h,min,tz){
-  // Convert local time to UT
-  const utH = h + min/60 - tz;
-  let Y=y, M=m, D=d+utH/24;
-  if(M<=2){ Y--; M+=12; }
-  const A=Math.floor(Y/100);
-  const B=2-A+Math.floor(A/4);
-  return Math.floor(365.25*(Y+4716))+Math.floor(30.6001*(M+1))+D+B-1524.5;
-}
-
-// Sun — VSOP87 truncated, accurate to ~0.01°
-function sunLon(jd){
-  const T=(jd-2451545.0)/36525;
-  // Geometric mean longitude
-  const L0=norm(280.46646+36000.76983*T+0.0003032*T*T);
-  // Mean anomaly
-  const M=norm(357.52911+35999.05029*T-0.0001537*T*T);
-  const Mrad=d2r(M);
-  // Equation of center
-  const C=(1.914602-0.004817*T-0.000014*T*T)*Math.sin(Mrad)
-          +(0.019993-0.000101*T)*Math.sin(2*Mrad)
-          +0.000289*Math.sin(3*Mrad);
-  // Sun's true longitude
-  const sunLong=L0+C;
-  // Apparent longitude (aberration + nutation approx)
-  const omega=norm(125.04-1934.136*T);
-  return norm(sunLong-0.00569-0.00478*Math.sin(d2r(omega)));
-}
-
-// Moon — ELP2000-82 truncated (accurate to ~0.1°)
-function moonLon(jd){
-  const T=(jd-2451545.0)/36525;
-  const L0=norm(218.3165+481267.8813*T-0.001599*T*T+T*T*T/538841);
-  const M=norm(357.5291+35999.0503*T-0.0001559*T*T);
-  const Mp=norm(134.9634+477198.8676*T+0.0089970*T*T+T*T*T/69699);
-  const D=norm(297.8502+445267.1115*T-0.0018268*T*T+T*T*T/545868);
-  const F=norm(93.2720+483202.0175*T-0.0034029*T*T-T*T*T/3526000);
-  const E=1-0.002516*T-0.0000074*T*T;
-  return norm(L0
-    +6.2886*Math.sin(d2r(Mp))
-    +1.2740*Math.sin(d2r(2*D-Mp))
-    +0.6583*Math.sin(d2r(2*D))
-    +0.2136*Math.sin(d2r(2*Mp))
-    -0.1851*E*Math.sin(d2r(M))
-    +0.1144*Math.sin(d2r(2*F))
-    -0.0588*Math.sin(d2r(2*D-2*Mp))
-    -0.0572*E*Math.sin(d2r(2*D-M-Mp))
-    -0.0533*Math.sin(d2r(2*D+Mp))
-    -0.0459*E*Math.sin(d2r(2*D-M))
-    +0.0427*Math.sin(d2r(3*Mp))
-    +0.0415*E*Math.sin(d2r(Mp+M))
-    +0.0388*Math.sin(d2r(2*D-2*F))
-    +0.0360*E*Math.sin(d2r(2*D+M))
-    +0.0328*Math.sin(d2r(D))
-    -0.0307*E*Math.sin(d2r(Mp-M))
-    -0.0258*Math.sin(d2r(Mp+2*F))
-    +0.0250*E*Math.sin(d2r(2*D+2*M))
-    +0.0157*Math.sin(d2r(3*D))
-    -0.0150*E*Math.sin(d2r(M-2*D))
-  );
-}
-
-// Obliquity of ecliptic
-function obliquity(T){
-  return 23.4392911-0.013004167*T-0.000000164*T*T+0.000000504*T*T*T;
-}
-
-// Mean planets — VSOP87 mean elements
-function planetLons(jd){
-  const T=(jd-2451545.0)/36525;
-  // Mercury VSOP87 mean + main perturbations
-  const meL0=norm(252.2509+149472.6749*T);
-  const meM=d2r(norm(174.7948+149472.5153*T));
-  const mercury=norm(meL0+23.4405*Math.sin(meM)+2.9818*Math.sin(2*meM)+0.5255*Math.sin(3*meM)+0.1058*Math.sin(4*meM));
-  
-  // Venus
-  const veL0=norm(181.9798+58517.8156*T);
-  const veM=d2r(norm(50.4161+58517.8039*T));
-  const venus=norm(veL0+0.7758*Math.sin(veM)+0.0033*Math.sin(2*veM));
-  
-  // Mars — better perturbation
-  const maL0=norm(355.4330+19140.2993*T);
-  const maM=d2r(norm(19.3730+19140.3006*T));
-  const mars=norm(maL0+10.6912*Math.sin(maM)+0.6228*Math.sin(2*maM)+0.0503*Math.sin(3*maM)+0.0046*Math.sin(4*maM));
-  
-  // Jupiter
-  const juL0=norm(34.3515+3034.9056*T);
-  const juM=d2r(norm(20.9202+3034.9057*T));
-  const jupiter=norm(juL0+5.5549*Math.sin(juM)+0.1683*Math.sin(2*juM)+0.0071*Math.sin(3*juM));
-  
-  // Saturn
-  const saL0=norm(50.0775+1222.1138*T);
-  const saM=d2r(norm(317.0207+1222.0942*T));
-  const saturn=norm(saL0+6.3585*Math.sin(saM)+0.2204*Math.sin(2*saM)+0.0106*Math.sin(3*saM));
-  
-  // Uranus
-  const urL0=norm(314.0550+428.4882*T);
-  const urM=d2r(norm(142.5905+428.4748*T));
-  const uranus=norm(urL0+5.3042*Math.sin(urM)+0.1534*Math.sin(2*urM));
-  
-  // Neptune
-  const neL0=norm(304.3481+218.4656*T);
-  const neM=d2r(norm(267.7649+218.4575*T));
-  const neptune=norm(neL0+1.0302*Math.sin(neM)+0.0058*Math.sin(2*neM));
-  
-  // Pluto (simplified)
-  const plL0=norm(238.9508+145.2000*T);
-  const plM=d2r(norm(35.0+145.2*T));
-  const pluto=norm(plL0+28.3150*Math.sin(plM)+4.3408*Math.sin(2*plM));
-  
-  return {mercury,venus,mars,jupiter,saturn,uranus,neptune,pluto};
-}
-
-function getPLon(key,jd){
-  const pl=planetLons(jd);
-  if(key==='sol') return sunLon(jd);
-  if(key==='luna') return moonLon(jd);
-  const map={mercurio:'mercury',venus:'venus',marte:'mars',
-    jupiter:'jupiter',saturno:'saturn',urano:'uranus',neptuno:'neptune',pluton:'pluto'};
-  return pl[map[key]]||0;
-}
-
-function isRetro(key,jd){
-  const l1=getPLon(key,jd-0.5), l2=getPLon(key,jd+0.5);
-  let d=l2-l1; if(d>180)d-=360; if(d<-180)d+=360;
-  return d<0;
-}
-
-// North Node (mean)
-function northNodeLon(jd){
-  const T=(jd-2451545.0)/36525;
-  return norm(125.04452-1934.136261*T+0.0020708*T*T+T*T*T/450000);
-}
-
-// Chiron (approximate)
-function chironLon(jd){
-  const T=(jd-2451545.0)/36525;
-  return norm(209.15+50.3933*T+4.0*Math.sin(d2r(77.0+50.5*T)));
-}
-
-// Ascendant (precise)
-function calcAscendant(jd,lat,lon){
-  const T=(jd-2451545.0)/36525;
-  const GMST=norm(280.46061837+360.98564736629*(jd-2451545.0)+0.000387933*T*T-T*T*T/38710000);
-  const LST=norm(GMST+lon);
-  const eps=obliquity(T);
-  const e=d2r(eps), R=d2r(LST), L=d2r(lat);
-  const y=-Math.cos(R);
-  const x=Math.sin(R)*Math.cos(e)+Math.tan(L)*Math.sin(e);
-  return norm(r2d(Math.atan2(y,x))+180);
-}
-
-// Midheaven (precise)
-function calcMC(jd,lon){
-  const T=(jd-2451545.0)/36525;
-  const GMST=norm(280.46061837+360.98564736629*(jd-2451545.0)+0.000387933*T*T-T*T*T/38710000);
-  const LST=norm(GMST+lon);
-  const eps=obliquity(T);
-  const e=d2r(eps), R=d2r(LST);
-  return norm(r2d(Math.atan2(Math.sin(R)*Math.cos(e), Math.cos(R))));
-}
-
-// Placidus houses (simplified) — equal house fallback
-function calcHouses(asc, mc, lat, jd){
-  // Equal house system for robustness
-  const houses=[];
-  for(let i=0;i<12;i++) houses.push(norm(asc+i*30));
-  // Override house 10 with MC
-  houses[9]=mc;
-  houses[3]=norm(mc+180);
-  return houses;
-}
-
-function signOf(lon){ return Math.floor(norm(lon)/30); }
-function degInSign(lon){ return norm(lon)%30; }
-function whichHouse(lon,houses){
-  for(let i=0;i<12;i++){
-    const s=houses[i], e=houses[(i+1)%12];
-    const l=norm(lon), S=norm(s), E=norm(e);
-    if(E>S){ if(l>=S&&l<E) return i+1; }
-    else { if(l>=S||l<E) return i+1; }
-  }
-  return 1;
-}
-function formatDeg(lon){
-  const s=signOf(lon), d=Math.floor(degInSign(lon));
-  const m=Math.floor((degInSign(lon)-d)*60);
-  return `${d}°${String(m).padStart(2,'0')}' ${SIGNS[s]}`;
-}
-
-// Aspects
-const ASPECTS=[
-  {name:'Conjunción',angle:0,  orb:8,  type:'neutral',  sym:'☌', color:'#D4AF37'},
-  {name:'Sextil',    angle:60, orb:5,  type:'harmonic', sym:'⚹', color:'#60D0FF'},
-  {name:'Cuadratura',angle:90, orb:7,  type:'tense',    sym:'□', color:'#FF7070'},
-  {name:'Trígono',   angle:120,orb:7,  type:'harmonic', sym:'△', color:'#6BDA8A'},
-  {name:'Quincuncio',angle:150,orb:3,  type:'neutral',  sym:'⚻', color:'#C0A0FF'},
-  {name:'Oposición', angle:180,orb:8,  type:'tense',    sym:'☍', color:'#FF9060'},
-];
-
-function findAspects(positions){
-  const keys=Object.keys(positions).filter(k=>k!=='ascendente'&&k!=='mc');
-  const aspects=[];
-  for(let i=0;i<keys.length;i++){
-    for(let j=i+1;j<keys.length;j++){
-      const lon1=positions[keys[i]].lon, lon2=positions[keys[j]].lon;
-      let diff=Math.abs(lon1-lon2); if(diff>180) diff=360-diff;
-      for(const asp of ASPECTS){
-        const orbActual=Math.abs(diff-asp.angle);
-        if(orbActual<=asp.orb){
-          aspects.push({p1:keys[i],p2:keys[j],...asp,orb:orbActual.toFixed(1)});
-        }
-      }
-    }
-  }
-  return aspects.sort((a,b)=>parseFloat(a.orb)-parseFloat(b.orb));
-}
-
-// ═══════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════
-let chartData=null, chatHistory=[], chartMode='2d';
-
-function startCalculation(){
-  const name=document.getElementById('f-name').value.trim()||'Usuario';
-  const dateVal=document.getElementById('f-date').value;
-  const timeVal=document.getElementById('f-time').value||'12:00';
-  const lat=parseFloat(document.getElementById('f-lat').value)||4.7110;
-  const lon=parseFloat(document.getElementById('f-lon').value)||-74.0721;
-  const tz=parseFloat(document.getElementById('f-tz').value)||-5;
-  const city=document.getElementById('f-city').value||'';
-  if(!dateVal){ alert('Por favor ingresa tu fecha de nacimiento'); return; }
-  const [y,m,d]=dateVal.split('-').map(Number);
-  const [h,min]=timeVal.split(':').map(Number);
-  document.getElementById('landing').style.display='none';
-  document.getElementById('loading').classList.add('active');
-  setTimeout(()=>calculate(name,y,m,d,h,min,lat,lon,tz,city),2800);
-}
-
-function calculate(name,year,month,day,hour,min,lat,lon,tz,city){
-  const jd=julianDay(year,month,day,hour,min,tz);
-  const pl=planetLons(jd);
-  const sLon=sunLon(jd), mLon=moonLon(jd);
-  const asc=calcAscendant(jd,d2r(lat),lon);
-  const mc=calcMC(jd,lon);
-  const houses=calcHouses(asc,mc,lat,jd);
-  const nnLon=northNodeLon(jd);
-  const chLon=chironLon(jd);
-
-  const positions={
-    sol:      {lon:sLon,        name:'Sol',         glyph:'☉', color:'#FFD700'},
-    luna:     {lon:mLon,        name:'Luna',         glyph:'☽', color:'#C8D8FF'},
-    mercurio: {lon:pl.mercury,  name:'Mercurio',     glyph:'☿', color:'#90C090'},
-    venus:    {lon:pl.venus,    name:'Venus',         glyph:'♀', color:'#FFB0C8'},
-    marte:    {lon:pl.mars,     name:'Marte',         glyph:'♂', color:'#FF6050'},
-    jupiter:  {lon:pl.jupiter,  name:'Júpiter',       glyph:'♃', color:'#FFA040'},
-    saturno:  {lon:pl.saturn,   name:'Saturno',       glyph:'♄', color:'#C8A060'},
-    urano:    {lon:pl.uranus,   name:'Urano',         glyph:'♅', color:'#50D8FF'},
-    neptuno:  {lon:pl.neptune,  name:'Neptuno',       glyph:'♆', color:'#5060FF'},
-    pluton:   {lon:pl.pluto,    name:'Plutón',        glyph:'♇', color:'#C060FF'},
-    nodoNorte:{lon:nnLon,       name:'Nodo Norte',    glyph:'☊', color:'#70D070'},
-    chiron:   {lon:chLon,       name:'Quirón',        glyph:'⚷', color:'#D0A0C0'},
-  };
-
-  const retroKeys=['mercurio','venus','marte','jupiter','saturno','urano','neptuno','pluton'];
-  Object.keys(positions).forEach(k=>{
-    const p=positions[k];
-    p.sign=signOf(p.lon); p.signName=SIGNS[p.sign]; p.signGlyph=SIGN_GLYPHS[p.sign];
-    p.element=SIGN_ELEMENTS[p.sign]; p.modality=SIGN_MODALITIES[p.sign];
-    p.degInSign=degInSign(p.lon); p.house=whichHouse(p.lon,houses);
-    p.formatted=formatDeg(p.lon);
-    if(retroKeys.includes(k)) p.retro=isRetro(k,jd);
-  });
-
-  positions.ascendente={
-    lon:asc,name:'Ascendente',glyph:'Asc',color:'#D4AF37',
-    sign:signOf(asc),signName:SIGNS[signOf(asc)],signGlyph:SIGN_GLYPHS[signOf(asc)],
-    element:SIGN_ELEMENTS[signOf(asc)],modality:SIGN_MODALITIES[signOf(asc)],
-    degInSign:degInSign(asc),house:1,formatted:formatDeg(asc)
-  };
-  positions.mc={
-    lon:mc,name:'Medio Cielo',glyph:'MC',color:'#D4AF37',
-    sign:signOf(mc),signName:SIGNS[signOf(mc)],signGlyph:SIGN_GLYPHS[signOf(mc)],
-    element:SIGN_ELEMENTS[signOf(mc)],modality:SIGN_MODALITIES[signOf(mc)],
-    degInSign:degInSign(mc),house:10,formatted:formatDeg(mc)
-  };
-
-  const aspects=findAspects(positions);
-
-  // Count elements and modalities
-  const elemCount={Fuego:0,Tierra:0,Aire:0,Agua:0};
-  const modCount={Cardinal:0,Fijo:0,Mutable:0};
-  const coreKeys=['sol','luna','mercurio','venus','marte','jupiter','saturno','ascendente'];
-  coreKeys.forEach(k=>{
-    if(positions[k]){
-      elemCount[positions[k].element]=(elemCount[positions[k].element]||0)+1;
-      modCount[positions[k].modality]=(modCount[positions[k].modality]||0)+1;
-    }
-  });
-
-  chartData={name,year,month,day,hour,min,lat,lon,tz,city,jd,positions,houses,aspects,asc,mc,elemCount,modCount};
-  renderApp();
-}
-
-function renderApp(){
-  document.getElementById('loading').classList.remove('active');
-  document.getElementById('app').classList.add('active');
-  document.getElementById('header-name').textContent=chartData.name;
-  renderTrinity();
-  renderChartCanvas();
-  renderElemModal();
-  renderPlanetsGrid();
-  renderHousesGrid();
-  renderAspects();
-  renderInterpretations();
-  initChat();
-}
-
-// ═══════════════════════════════════════════
-// TRINITY CARDS (Sun / Moon / Asc)
-// ═══════════════════════════════════════════
-function renderTrinity(){
-  const p=chartData.positions;
-  const items=[
-    {key:'sol',   emoji:'☉', label:'Sol', color:'#FFD700'},
-    {key:'luna',  emoji:'☽', label:'Luna',color:'#C8D8FF'},
-    {key:'ascendente',emoji:'↑',label:'Ascendente',color:'#D4AF37'},
-  ];
-  document.getElementById('trinity-cards').innerHTML=items.map(it=>{
-    const pl=p[it.key];
-    return `<div class="trinity-card" onclick="showPlanetDetail('${it.key}')">
-      <span class="tc-glyph" style="color:${it.color}">${it.emoji}</span>
-      <div class="tc-label">${it.label}</div>
-      <div class="tc-value">${pl.signGlyph} ${pl.signName}</div>
-      <div class="tc-detail">${Math.floor(pl.degInSign)}° · Casa ${pl.house}</div>
-      <div class="tc-detail" style="margin-top:0.2rem"><span style="font-size:0.65rem;color:${MOD_COLORS[pl.modality]}">${pl.modality}</span> · <span style="font-size:0.65rem;color:${ELEM_COLORS[pl.element]}">${pl.element}</span></div>
-      <div class="tc-expand">✦ Ampliar información</div>
-    </div>`;
-  }).join('');
-}
-
-// ═══════════════════════════════════════════
-// 3D CHART CANVAS
-// ═══════════════════════════════════════════
-function setChartMode(mode){
-  chartMode=mode;
-  document.getElementById('btn-2d').classList.toggle('active',mode==='2d');
-  document.getElementById('btn-3d').classList.toggle('active',mode==='3d');
-  renderChartCanvas();
-}
-
-let tiltAngle=15; // degrees for pseudo-3d
-
-function renderChartCanvas(){
-  const canvas=document.getElementById('natal-canvas');
-  const ctx=canvas.getContext('2d');
-  const W=480, H=480;
-  canvas.width=W; canvas.height=H;
-  ctx.clearRect(0,0,W,H);
-
-  const cx=W/2, cy=H/2;
-  const is3d=chartMode==='3d';
-  
-  // For 3D: scale Y to simulate tilt
-  const scaleY=is3d?0.7:1.0;
-  const shadowDepth=is3d?18:0;
-
-  function project(angle, radius){
-    const a=d2r(angle-90);
-    const x=cx+radius*Math.cos(a);
-    const y=cy+radius*Math.sin(a)*scaleY;
-    return {x,y};
-  }
-
-  function drawArc(radius, startAngle, endAngle, style, lineWidth=1){
-    if(is3d && shadowDepth>0){
-      // 3D shadow arc
-      ctx.save();
-      ctx.beginPath();
-      ctx.strokeStyle='rgba(0,0,0,0.4)';
-      ctx.lineWidth=lineWidth+1;
-      for(let a=startAngle;a<=endAngle;a+=0.5){
-        const p=project(a,radius);
-        if(a===startAngle) ctx.moveTo(p.x+shadowDepth*0.3,p.y+shadowDepth);
-        else ctx.lineTo(p.x+shadowDepth*0.3,p.y+shadowDepth);
-      }
-      ctx.stroke();
-      ctx.restore();
-    }
-    ctx.beginPath();
-    ctx.strokeStyle=style;
-    ctx.lineWidth=lineWidth;
-    for(let a=startAngle;a<=endAngle;a+=0.5){
-      const p=project(a,radius);
-      if(a===startAngle) ctx.moveTo(p.x,p.y);
-      else ctx.lineTo(p.x,p.y);
-    }
-    ctx.stroke();
-  }
-
-  function fillRing(rInner, rOuter, startAngle, endAngle, fillStyle){
-    ctx.beginPath();
-    for(let a=startAngle;a<=endAngle;a+=0.5){
-      const p=project(a,rOuter);
-      if(a===startAngle) ctx.moveTo(p.x,p.y); else ctx.lineTo(p.x,p.y);
-    }
-    for(let a=endAngle;a>=startAngle;a-=0.5){
-      const p=project(a,rInner);
-      ctx.lineTo(p.x,p.y);
-    }
-    ctx.closePath();
-    ctx.fillStyle=fillStyle;
-    ctx.fill();
-  }
-
-  // Deep space background glow
-  if(is3d){
-    const g=ctx.createRadialGradient(cx,cy+20,0,cx,cy+20,220);
-    g.addColorStop(0,'rgba(30,10,70,0.5)');
-    g.addColorStop(0.5,'rgba(10,5,40,0.3)');
-    g.addColorStop(1,'transparent');
-    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
-  }
-
-  const R_OUTER=210, R_ZODIAC=192, R_ZIN=158, R_HIN=148, R_PLANET=125, R_CENTER=55;
-  const asc=chartData.asc;
-
-  // Draw zodiac ring segments
-  const elemColorMap={
-    0:'rgba(255,80,60,0.22)',  // Aries Fire
-    1:'rgba(120,100,60,0.22)',  // Taurus Earth
-    2:'rgba(100,190,220,0.22)',// Gemini Air
-    3:'rgba(60,120,200,0.22)', // Cancer Water
-    4:'rgba(255,120,40,0.22)', // Leo Fire
-    5:'rgba(100,150,80,0.22)', // Virgo Earth
-    6:'rgba(130,200,240,0.22)',// Libra Air
-    7:'rgba(120,30,40,0.22)',  // Scorpio Water
-    8:'rgba(160,60,220,0.22)', // Sag Fire
-    9:'rgba(70,90,110,0.22)',  // Cap Earth
-    10:'rgba(50,200,200,0.22)',// Aqua Air
-    11:'rgba(80,100,200,0.22)',// Pisces Water
-  };
-  const signColors=['#FF6B6B','#8B7355','#87CEEB','#4A90D9','#FFD700','#90C060',
-                    '#DDA0DD','#B22222','#9400D3','#708090','#40E0D0','#7B68EE'];
-  
-  for(let i=0;i<12;i++){
-    const startA=i*30-asc, endA=(i+1)*30-asc;
-    fillRing(R_ZIN,R_OUTER,startA,endA+0.5,elemColorMap[i]);
-  }
-  
-  // Zodiac ring outline
-  drawArc(R_OUTER,0,360,'rgba(212,175,55,0.5)',1.5);
-  drawArc(R_ZIN,0,360,'rgba(212,175,55,0.3)',1);
-  
-  // Zodiac sign lines & glyphs
-  for(let i=0;i<12;i++){
-    const a=i*30-asc;
-    const p1=project(a,R_ZIN), p2=project(a,R_OUTER);
-    ctx.beginPath(); ctx.strokeStyle='rgba(212,175,55,0.35)'; ctx.lineWidth=0.8;
-    ctx.moveTo(p1.x,p1.y); ctx.lineTo(p2.x,p2.y); ctx.stroke();
-    const gp=project(a+15,(R_ZIN+R_OUTER)/2);
-    ctx.font=`16px serif`; ctx.fillStyle=signColors[i];
-    ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.shadowColor=signColors[i]; ctx.shadowBlur=is3d?6:3;
-    ctx.fillText(SIGN_GLYPHS[i],gp.x,gp.y);
-    ctx.shadowBlur=0;
-  }
-
-  // Houses ring
-  drawArc(R_HIN,0,360,'rgba(107,63,160,0.4)',1);
-  drawArc(R_CENTER,0,360,'rgba(107,63,160,0.2)',0.8);
-
-  // House cusps
-  for(let i=0;i<12;i++){
-    const houseAngle=chartData.houses[i]-asc;
-    const p1=project(houseAngle,R_HIN), p2=project(houseAngle,R_ZIN);
-    const isAngle=[0,3,6,9].includes(i);
-    ctx.beginPath();
-    ctx.strokeStyle=isAngle?'rgba(212,175,55,0.8)':'rgba(107,63,160,0.45)';
-    ctx.lineWidth=isAngle?1.5:0.7;
-    ctx.moveTo(p1.x,p1.y); ctx.lineTo(p2.x,p2.y); ctx.stroke();
-    // House number
-    const hmid=project(chartData.houses[i]+15-asc, R_HIN-16);
-    ctx.font='9px Inter,sans-serif'; ctx.fillStyle='rgba(107,63,160,0.8)';
-    ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText(i+1,hmid.x,hmid.y);
-  }
-
-  // Aspect lines
-  const drawnA=new Set();
-  const aspectColorMap={harmonic:'rgba(80,180,255,0.35)',tense:'rgba(255,80,80,0.35)',neutral:'rgba(200,170,50,0.25)'};
-  chartData.aspects.slice(0,20).forEach(asp=>{
-    const p1=chartData.positions[asp.p1], p2=chartData.positions[asp.p2];
-    if(!p1||!p2) return;
-    const key=[asp.p1,asp.p2].sort().join(':');
-    if(drawnA.has(key)) return; drawnA.add(key);
-    const a1=project(p1.lon-asc, R_HIN-4);
-    const a2=project(p2.lon-asc, R_HIN-4);
-    ctx.beginPath(); ctx.strokeStyle=aspectColorMap[asp.type]; ctx.lineWidth=0.9;
-    ctx.moveTo(a1.x,a1.y); ctx.lineTo(a2.x,a2.y); ctx.stroke();
-  });
-
-  // Planets
-  const plotted={};
-  const pOrder=['sol','luna','mercurio','venus','marte','jupiter','saturno','urano','neptuno','pluton','nodoNorte','chiron'];
-  pOrder.forEach(k=>{
-    const p=chartData.positions[k]; if(!p) return;
-    let angle=p.lon-asc;
-    // Anti-cluster nudge
-    Object.values(plotted).forEach(prev=>{
-      let diff=Math.abs(norm(p.lon)-norm(prev)); if(diff>180) diff=360-diff;
-      if(diff<6) angle+=7;
-    });
-    plotted[k]=p.lon;
-    const pt=project(angle,R_PLANET);
-    // Glow ring
-    if(is3d){
-      const grd=ctx.createRadialGradient(pt.x,pt.y,2,pt.x,pt.y,14);
-      grd.addColorStop(0,p.color+'44');
-      grd.addColorStop(1,p.color+'00');
-      ctx.fillStyle=grd; ctx.beginPath(); ctx.arc(pt.x,pt.y,14,0,Math.PI*2); ctx.fill();
-    }
-    ctx.beginPath(); ctx.arc(pt.x,pt.y,11,0,Math.PI*2);
-    ctx.fillStyle=p.color+'20'; ctx.fill();
-    ctx.strokeStyle=p.color+'80'; ctx.lineWidth=1; ctx.stroke();
-    // Glyph
-    ctx.font=`${is3d?13:12}px serif`; ctx.fillStyle=p.color;
-    ctx.textAlign='center'; ctx.textBaseline='middle';
-    if(is3d){ ctx.shadowColor=p.color; ctx.shadowBlur=8; }
-    ctx.fillText(p.glyph,pt.x,pt.y);
-    ctx.shadowBlur=0;
-    // Retrograde
-    if(p.retro){
-      ctx.font='7px Inter,sans-serif'; ctx.fillStyle='#E07070';
-      ctx.fillText('℞',pt.x+9,pt.y-9);
-    }
-    // Connector line to zodiac ring
-    const edgePt=project(angle,R_HIN-2);
-    ctx.beginPath(); ctx.strokeStyle=p.color+'35'; ctx.lineWidth=0.5;
-    ctx.moveTo(pt.x,pt.y); ctx.lineTo(edgePt.x,edgePt.y); ctx.stroke();
-  });
-
-  // ASC & MC markers
-  const ascPt=project(0,R_PLANET-5);
-  const mcPt=project(chartData.mc-asc,R_PLANET-5);
-  ctx.font='9px Inter,sans-serif'; ctx.fillStyle='#D4AF37';
-  ctx.textAlign='center'; ctx.textBaseline='middle';
-  ctx.shadowColor='#D4AF37'; ctx.shadowBlur=6;
-  ctx.fillText('Asc',ascPt.x,ascPt.y);
-  ctx.fillText('MC',mcPt.x,mcPt.y);
-  ctx.shadowBlur=0;
-
-  // Center symbol
-  if(is3d){
-    const cg=ctx.createRadialGradient(cx,cy,0,cx,cy,R_CENTER);
-    cg.addColorStop(0,'rgba(212,175,55,0.12)');
-    cg.addColorStop(1,'rgba(107,63,160,0.05)');
-    ctx.fillStyle=cg; ctx.beginPath(); ctx.arc(cx,cy,R_CENTER,0,Math.PI*2); ctx.fill();
-  }
-  ctx.font='30px serif'; ctx.fillStyle='rgba(212,175,55,0.25)';
-  ctx.textAlign='center'; ctx.textBaseline='middle';
-  ctx.fillText('⊕',cx,cy-6);
-  ctx.font='8px Cormorant Garamond,serif'; ctx.fillStyle='rgba(255,255,255,0.2)';
-  ctx.letterSpacing='2px';
-  ctx.fillText(chartData.name.toUpperCase(),cx,cy+14);
-}
-
-function downloadChart(){
-  const canvas=document.getElementById('natal-canvas');
-  const a=document.createElement('a');
-  a.href=canvas.toDataURL('image/png');
-  a.download=`astrofriend-${chartData.name.replace(/ /g,'_')}.png`;
-  a.click();
-}
-
-// ═══════════════════════════════════════════
-// ELEMENTS & MODALITIES
-// ═══════════════════════════════════════════
-function renderElemModal(){
-  const container=document.getElementById('elem-modal-section');
-  const totalE=Object.values(chartData.elemCount).reduce((a,b)=>a+b,0);
-  const totalM=Object.values(chartData.modCount).reduce((a,b)=>a+b,0);
-
-  const elemHTML=`<div class="interp-card" style="margin-bottom:0">
-    <div class="interp-title" style="font-size:0.95rem">Elementos</div>
-    <div class="stats-bars">
-      ${Object.entries(chartData.elemCount).map(([el,cnt])=>`
-        <div class="stat-row">
-          <div class="stat-label" style="color:${ELEM_COLORS[el]}">${el}</div>
-          <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:${(cnt/totalE*100).toFixed(0)}%;background:${ELEM_COLORS[el]}"></div></div>
-          <div class="stat-count">${cnt}</div>
-        </div>`).join('')}
-    </div>
-  </div>`;
-
-  const modHTML=`<div class="interp-card" style="margin-bottom:0">
-    <div class="interp-title" style="font-size:0.95rem">Modalidades</div>
-    <div class="stats-bars">
-      ${Object.entries(chartData.modCount).map(([mod,cnt])=>`
-        <div class="stat-row">
-          <div class="stat-label" style="color:${MOD_COLORS[mod]}">${mod}</div>
-          <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:${(cnt/totalM*100).toFixed(0)}%;background:${MOD_COLORS[mod]}"></div></div>
-          <div class="stat-count">${cnt}</div>
-        </div>`).join('')}
-    </div>
-  </div>`;
-
-  container.innerHTML=elemHTML+modHTML;
-}
-
-// ═══════════════════════════════════════════
-// PLANETS GRID
-// ═══════════════════════════════════════════
-function renderPlanetsGrid(){
-  const keys=['sol','luna','ascendente','mc','mercurio','venus','marte',
-    'jupiter','saturno','urano','neptuno','pluton','nodoNorte','chiron'];
-  document.getElementById('planets-grid').innerHTML=keys.map(k=>{
-    const p=chartData.positions[k]; if(!p) return '';
-    return `<div class="planet-card">
-      <div class="planet-header">
-        <span class="planet-glyph" style="color:${p.color||'#D4AF37'}">${p.glyph}</span>
-        <span class="planet-name">${p.name}</span>
-        ${p.retro?'<span class="retro-badge">℞</span>':''}
-      </div>
-      <div class="planet-position">${p.signGlyph} ${p.signName}</div>
-      <div class="planet-meta">${Math.floor(p.degInSign)}° · Casa ${p.house} · <span style="color:${ELEM_COLORS[p.element]}">${p.element}</span></div>
-    </div>`;
-  }).join('');
-}
-
-// ═══════════════════════════════════════════
-// HOUSES GRID (clickable for detail)
-// ═══════════════════════════════════════════
-const HOUSE_MEANINGS=[
-  'Identidad personal, apariencia física y primera impresión',
-  'Valores materiales, dinero, posesiones y autoestima',
-  'Comunicación, mente, hermanos y viajes cortos',
-  'Hogar, familia, raíces y vida emocional',
-  'Creatividad, amor, hijos, placer y autoexpresión',
-  'Trabajo, salud, rutinas diarias y servicio',
-  'Relaciones, matrimonio, socios y el "otro"',
-  'Sexualidad, muerte, transformación, herencias y ocultismo',
-  'Filosofía, religión, viajes largos, estudios superiores',
-  'Carrera, reputación, autoridad y ambición pública',
-  'Amistades, grupos, metas colectivas y humanitarismo',
-  'Inconsciente, secretos, espiritualidad y reclusión',
-];
+const SIGN_DESCRIPTIONS={
+  es:[{keywords:'pionero/a, directo/a, valiente, independiente',strengths:'Liderazgo natural, iniciativa y valentía.',challenges:'Impaciencia e impulsividad.',soul:'Actuar con conciencia, no solo con impulso.',archetype:'El Guerrero.'},{keywords:'sensual, persistente, estable',strengths:'Perseverancia, sentido práctico y lealtad.',challenges:'Terquedad y apego.',soul:'Encontrar el valor más allá de lo material.',archetype:'El Constructor.'},{keywords:'curioso/a, comunicativo/a, versátil',strengths:'Mente ágil y curiosidad insaciable.',challenges:'Dispersión mental.',soul:'Unir los opuestos internos.',archetype:'El Mensajero.'},{keywords:'intuitivo/a, empático/a, protector/a',strengths:'Intuición profunda y empatía.',challenges:'Hipersensibilidad y apego.',soul:'Dar cuidado sin perder el centro.',archetype:'La Gran Madre.'},{keywords:'creativo/a, generoso/a, magnético/a',strengths:'Carisma y liderazgo inspirador.',challenges:'Ego y necesidad de validación.',soul:'Brillar desde el corazón.',archetype:'El Rey/Reina.'},{keywords:'analítico/a, servicial, perfeccionista',strengths:'Análisis preciso y atención al detalle.',challenges:'Autocrítica excesiva.',soul:'El servicio nace del amor.',archetype:'El Sanador.'},{keywords:'diplomático/a, estético/a, justo/a',strengths:'Sentido de justicia y diplomacia.',challenges:'Indecisión y dependencia.',soul:'Encontrar el propio centro.',archetype:'El Amante.'},{keywords:'intenso/a, transformador/a, apasionado/a',strengths:'Profundidad psicológica y regeneración.',challenges:'Celos y control.',soul:'Morir y renacer.',archetype:'El Chamán.'},{keywords:'filosófico/a, aventurero/a, optimista',strengths:'Visión de futuro y amor por la libertad.',challenges:'Excesos y falta de tacto.',soul:'Encontrar la verdad interior.',archetype:'El Explorador.'},{keywords:'ambicioso/a, disciplinado/a, responsable',strengths:'Determinación y capacidad de construir legado.',challenges:'Frialdad y miedo al fracaso.',soul:'El éxito más profundo es interno.',archetype:'El Anciano Sabio.'},{keywords:'original, humanitario/a, visionario/a',strengths:'Pensamiento innovador y altruismo.',challenges:'Frialdad y desconexión.',soul:'Unir visión colectiva con amor individual.',archetype:'El Visionario.'},{keywords:'compasivo/a, espiritual, soñador/a',strengths:'Compasión universal y conexión espiritual.',challenges:'Evasión y límites difusos.',soul:'Disolver el ego desde el amor.',archetype:'El Místico.'}],
+  en:[{keywords:'pioneering, direct, brave, independent',strengths:'Natural leadership, initiative and courage.',challenges:'Impatience and impulsiveness.',soul:'Act with awareness, not just impulse.',archetype:'The Warrior.'},{keywords:'sensual, persistent, stable',strengths:'Perseverance, practicality and loyalty.',challenges:'Stubbornness and attachment.',soul:'Find worth beyond the material.',archetype:'The Builder.'},{keywords:'curious, communicative, versatile',strengths:'Quick mind and insatiable curiosity.',challenges:'Mental scattering.',soul:'Unite inner opposites.',archetype:'The Messenger.'},{keywords:'intuitive, empathetic, protective',strengths:'Deep intuition and empathy.',challenges:'Hypersensitivity and attachment.',soul:'Give care without losing your center.',archetype:'The Great Mother.'},{keywords:'creative, generous, magnetic',strengths:'Charisma and inspiring leadership.',challenges:'Ego and need for validation.',soul:'Shine from the heart.',archetype:'The King/Queen.'},{keywords:'analytical, helpful, perfectionist',strengths:'Precise analysis and attention to detail.',challenges:'Excessive self-criticism.',soul:'Service is born of love.',archetype:'The Healer.'},{keywords:'diplomatic, aesthetic, fair',strengths:'Sense of justice and diplomacy.',challenges:'Indecision and dependence.',soul:'Find your own center.',archetype:'The Lover.'},{keywords:'intense, transformative, passionate',strengths:'Psychological depth and regeneration.',challenges:'Jealousy and control.',soul:'Die and be reborn.',archetype:'The Shaman.'},{keywords:'philosophical, adventurous, optimistic',strengths:'Vision of the future and love of freedom.',challenges:'Excess and lack of tact.',soul:'Find inner truth.',archetype:'The Explorer.'},{keywords:'ambitious, disciplined, responsible',strengths:'Determination and ability to build legacy.',challenges:'Coldness and fear of failure.',soul:'The deepest success is internal.',archetype:'The Wise Elder.'},{keywords:'original, humanitarian, visionary',strengths:'Innovative thinking and altruism.',challenges:'Coldness and disconnection.',soul:'Unite collective vision with individual love.',archetype:'The Visionary.'},{keywords:'compassionate, spiritual, dreamy',strengths:'Universal compassion and spiritual connection.',challenges:'Escapism and blurred boundaries.',soul:'Dissolve the ego through love.',archetype:'The Mystic.'}]
+};
+const PLANET_DETAIL_TEXT={es:{sol:"El Sol representa tu esencia más profunda, tu fuerza vital y tu propósito.",luna:"La Luna gobierna tu mundo emocional, tus instintos y cómo te nutres internamente.",ascendente:"El Ascendente define tu máscara social, apariencia y primera impresión."},en:{sol:"The Sun represents your deepest essence, vital force and purpose.",luna:"The Moon governs your emotional world, instincts and how you nourish yourself.",ascendente:"The Ascendant defines your social mask, appearance and first impression."}};
+const HOUSE_MEANINGS={es:['Identidad personal, apariencia y primera impresión','Valores materiales, dinero y autoestima','Comunicación, mente, hermanos y viajes cortos','Hogar, familia, raíces y vida emocional','Creatividad, amor, hijos y autoexpresión','Trabajo, salud, rutinas y servicio','Relaciones, matrimonio y socios','Sexualidad, muerte, transformación y herencias','Filosofía, religión, viajes largos y estudios superiores','Carrera, reputación y ambición pública','Amistades, grupos y metas colectivas','Inconsciente, secretos y espiritualidad'],en:['Personal identity, appearance and first impression','Material values, money and self-worth','Communication, mind, siblings and short trips','Home, family, roots and emotional life','Creativity, love, children and self-expression','Work, health, routines and service','Relationships, marriage and partners','Sexuality, death, transformation and inheritance','Philosophy, religion, long journeys and higher education','Career, reputation and public ambition','Friendships, groups and collective goals','Unconscious, secrets and spirituality']};
 const HOUSE_NAMES_ROM=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
 
-function renderHousesGrid(){
-  document.getElementById('houses-grid').innerHTML=chartData.houses.map((lon,i)=>`
-    <div class="house-item" onclick="showHouseDetail(${i})">
-      <div class="house-num">Casa ${HOUSE_NAMES_ROM[i]}</div>
-      <div class="house-sign">${SIGN_GLYPHS[signOf(lon)]} ${SIGNS[signOf(lon)]}</div>
-      <div class="house-deg">${Math.floor(lon%30)}°</div>
-    </div>`).join('');
-}
+const I18n={current:'es',t(k){const v=TRANSLATIONS[this.current]?.[k];return v!==undefined?v:k;},signName(i){return SIGNS_BY_LANG[this.current][i];},elemName(c){const i=ELEM_INDEX.indexOf(c);return i>=0?ELEMENTS_BY_LANG[this.current][i]:c;},modName(c){const i=MOD_INDEX.indexOf(c);return i>=0?MODALITIES_BY_LANG[this.current][i]:c;},signDesc(i){return SIGN_DESCRIPTIONS[this.current][i];},planetText(k){return PLANET_DETAIL_TEXT[this.current][k]||'';},houseMeaning(i){return HOUSE_MEANINGS[this.current][i];},detect(){const s=localStorage.getItem('af_lang');if(s)return s;const n=(navigator.language||'es').split('-')[0];return ['es','en'].includes(n)?n:'es';},apply(){document.querySelectorAll('[data-i18n]').forEach(e=>e.textContent=this.t(e.getAttribute('data-i18n')));document.querySelectorAll('[data-i18n-placeholder]').forEach(e=>e.setAttribute('placeholder',this.t(e.getAttribute('data-i18n-placeholder'))));this.renderSuggestions();document.documentElement.lang=this.current;if(window.chartData)renderApp();},renderSuggestions(){const c=document.getElementById('suggestions');if(!c)return;const s=this.t('suggestions');if(Array.isArray(s))c.innerHTML=s.map(x=>`<span class="suggestion-chip" onclick="sendSuggestion(this)">${x}</span>`).join('');},set(l){this.current=l;localStorage.setItem('af_lang',l);this.apply();updateLangButtons();}};
+function switchLanguage(l){I18n.set(l);}
+function updateLangButtons(){document.querySelectorAll('[data-lang-btn]').forEach(b=>b.classList.toggle('active',b.getAttribute('data-lang-btn')===I18n.current));}
 
-function showHouseDetail(i){
-  const lon=chartData.houses[i];
-  const sign=SIGNS[signOf(lon)];
-  const elem=SIGN_ELEMENTS[signOf(lon)];
-  const mod=SIGN_MODALITIES[signOf(lon)];
-  // Find planets in this house
-  const planetsHere=Object.values(chartData.positions).filter(p=>p.house===i+1 && p.name!=='Ascendente' && p.name!=='Medio Cielo');
-  document.getElementById('modal-title').textContent=`Casa ${HOUSE_NAMES_ROM[i]} — ${sign}`;
-  document.getElementById('modal-content').innerHTML=`
-    <div class="modal-section">
-      <div class="modal-section-title">Área de vida</div>
-      <p class="modal-text">${HOUSE_MEANINGS[i]}</p>
-    </div>
-    <div class="modal-section">
-      <div class="modal-section-title">Cúspide: ${SIGN_GLYPHS[signOf(lon)]} ${sign} ${Math.floor(lon%30)}°</div>
-      <p class="modal-text">Esta casa comienza en <strong>${sign}</strong>, un signo de <span style="color:${ELEM_COLORS[elem]}">${elem}</span> y modalidad <span style="color:${MOD_COLORS[mod]}">${mod}</span>. Esto colorea el área de ${HOUSE_MEANINGS[i].toLowerCase()} con cualidades ${sign.toLowerCase()}: ${getSignKeywords(signOf(lon))}.</p>
-    </div>
-    ${planetsHere.length>0?`<div class="modal-section">
-      <div class="modal-section-title">Planetas en esta casa</div>
-      <p class="modal-text">${planetsHere.map(p=>`${p.glyph} <strong>${p.name}</strong> en ${p.signName} ${Math.floor(p.degInSign)}°`).join(' · ')}</p>
-    </div>`:'<div class="modal-section"><p class="modal-text" style="font-style:italic;opacity:0.7">No hay planetas en esta casa. La energía de la casa actúa principalmente a través de su signo en la cúspide.</p></div>'}
-  `;
-  document.getElementById('modal-overlay').classList.add('active');
-}
+// ═══════ STARFIELD ═══════
+(function(){const c=document.getElementById('star-canvas'),ctx=c.getContext('2d');let stars=[],neb=[];function rs(){c.width=innerWidth;c.height=innerHeight;}function init(){stars=[];for(let i=0;i<300;i++)stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.5+0.2,phase:Math.random()*Math.PI*2,speed:Math.random()*0.005+0.002,gold:Math.random()<0.1});neb=[];for(let i=0;i<5;i++)neb.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*120+60,col:Math.random()<0.5?'rgba(107,63,160,':'rgba(30,10,80,'});}let f=0;function draw(){ctx.clearRect(0,0,c.width,c.height);neb.forEach(n=>{const g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r);g.addColorStop(0,n.col+'0.04)');g.addColorStop(1,n.col+'0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fill();});f++;stars.forEach(s=>{const a=0.2+Math.sin(s.phase+f*s.speed)*0.6;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=s.gold?`rgba(201,168,76,${a})`:`rgba(255,255,255,${a})`;ctx.fill();if(s.r>1.1){ctx.strokeStyle=s.gold?`rgba(201,168,76,${a*0.3})`:`rgba(255,255,255,${a*0.3})`;ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(s.x-s.r*2.5,s.y);ctx.lineTo(s.x+s.r*2.5,s.y);ctx.moveTo(s.x,s.y-s.r*2.5);ctx.lineTo(s.x,s.y+s.r*2.5);ctx.stroke();}});requestAnimationFrame(draw);}addEventListener('resize',()=>{rs();init();});rs();init();draw();})();
 
-// ═══════════════════════════════════════════
-// ASPECTS
-// ═══════════════════════════════════════════
-function renderAspects(){
-  const container=document.getElementById('aspects-list');
-  container.innerHTML=chartData.aspects.slice(0,20).map(a=>{
-    const p1=chartData.positions[a.p1], p2=chartData.positions[a.p2];
-    if(!p1||!p2) return '';
-    return `<div class="aspect-item ${a.type}">
-      <span class="aspect-symbol" style="color:${a.color}">${a.sym}</span>
-      <span class="aspect-name">${a.name}</span>
-      <span class="aspect-planets">${p1.glyph} ${p1.name} — ${p2.glyph} ${p2.name}</span>
-      <span class="aspect-orb">${a.orb}°</span>
-    </div>`;
-  }).join('');
-}
+// ═══════ MOTOR ASTRONÓMICO (VSOP87/ELP2000) ═══════
+function d2r(d){return d*Math.PI/180;}function r2d(r){return r*180/Math.PI;}function norm(d){return((d%360)+360)%360;}
+function signOf(l){return Math.floor(norm(l)/30);}function degIn(l){return norm(l)%30;}function degMin(l){return Math.floor(norm(l)%30);}
+function canonElem(s){return ELEM_INDEX[s%4];}function canonMod(s){return MOD_INDEX[s%3];}
+function julianDay(y,m,d,h,mi,tz){const utH=h+mi/60-tz;let Y=y,M=m,D=d+utH/24;if(M<=2){Y--;M+=12;}const A=Math.floor(Y/100),B=2-A+Math.floor(A/4);return Math.floor(365.25*(Y+4716))+Math.floor(30.6001*(M+1))+D+B-1524.5;}
+function sunLon(jd){const T=(jd-2451545)/36525;const L0=norm(280.46646+36000.76983*T+0.0003032*T*T);const M=norm(357.52911+35999.05029*T-0.0001537*T*T);const Mr=d2r(M);const C=(1.914602-0.004817*T-0.000014*T*T)*Math.sin(Mr)+(0.019993-0.000101*T)*Math.sin(2*Mr)+0.000289*Math.sin(3*Mr);const om=norm(125.04-1934.136*T);return norm(L0+C-0.00569-0.00478*Math.sin(d2r(om)));}
+function moonLon(jd){const T=(jd-2451545)/36525;const L0=norm(218.3165+481267.8813*T-0.001599*T*T);const M=norm(357.5291+35999.0503*T);const Mp=norm(134.9634+477198.8676*T+0.008997*T*T);const D=norm(297.8502+445267.1115*T-0.0018268*T*T);const F=norm(93.272+483202.0175*T-0.0034029*T*T);const E=1-0.002516*T;return norm(L0+6.2886*Math.sin(d2r(Mp))+1.274*Math.sin(d2r(2*D-Mp))+0.6583*Math.sin(d2r(2*D))+0.2136*Math.sin(d2r(2*Mp))-0.1851*E*Math.sin(d2r(M))+0.1144*Math.sin(d2r(2*F))-0.0588*Math.sin(d2r(2*D-2*Mp))-0.0572*E*Math.sin(d2r(2*D-M-Mp))-0.0533*Math.sin(d2r(2*D+Mp))-0.0459*E*Math.sin(d2r(2*D-M))+0.0427*Math.sin(d2r(3*Mp))+0.0415*E*Math.sin(d2r(Mp+M))+0.0388*Math.sin(d2r(2*D-2*F))+0.036*E*Math.sin(d2r(2*D+M))+0.0328*Math.sin(d2r(D))-0.0307*E*Math.sin(d2r(Mp-M)));}
+function obliq(T){return 23.4392911-0.013004167*T-0.000000164*T*T;}
+function planetLons(jd){const T=(jd-2451545)/36525;
+  const meL=norm(252.2509+149472.6749*T),meM=d2r(norm(174.7948+149472.5153*T));const mercury=norm(meL+23.4405*Math.sin(meM)+2.9818*Math.sin(2*meM)+0.5255*Math.sin(3*meM)+0.1058*Math.sin(4*meM));
+  const veL=norm(181.9798+58517.8156*T),veM=d2r(norm(50.4161+58517.8039*T));const venus=norm(veL+0.7758*Math.sin(veM)+0.0033*Math.sin(2*veM));
+  const maL=norm(355.433+19140.2993*T),maM=d2r(norm(19.373+19140.3006*T));const mars=norm(maL+10.6912*Math.sin(maM)+0.6228*Math.sin(2*maM)+0.0503*Math.sin(3*maM)+0.0046*Math.sin(4*maM));
+  const juL=norm(34.3515+3034.9056*T),juM=d2r(norm(20.9202+3034.9057*T));const jupiter=norm(juL+5.5549*Math.sin(juM)+0.1683*Math.sin(2*juM)+0.0071*Math.sin(3*juM));
+  const saL=norm(50.0775+1222.1138*T),saM=d2r(norm(317.0207+1222.0942*T));const saturn=norm(saL+6.3585*Math.sin(saM)+0.2204*Math.sin(2*saM)+0.0106*Math.sin(3*saM));
+  const urL=norm(314.055+428.4882*T),urM=d2r(norm(142.5905+428.4748*T));const uranus=norm(urL+5.3042*Math.sin(urM)+0.1534*Math.sin(2*urM));
+  const neL=norm(304.3481+218.4656*T),neM=d2r(norm(267.7649+218.4575*T));const neptune=norm(neL+1.0302*Math.sin(neM)+0.0058*Math.sin(2*neM));
+  const plL=norm(238.9508+145.2*T),plM=d2r(norm(35+145.2*T));const pluto=norm(plL+28.315*Math.sin(plM)+4.3408*Math.sin(2*plM));
+  return{mercury,venus,mars,jupiter,saturn,uranus,neptune,pluto};}
+function getPLon(k,jd){if(k==='sol')return sunLon(jd);if(k==='luna')return moonLon(jd);const pl=planetLons(jd);const m={mercurio:'mercury',venus:'venus',marte:'mars',jupiter:'jupiter',saturno:'saturn',urano:'uranus',neptuno:'neptune',pluton:'pluto'};return pl[m[k]]||0;}
+function isRetro(k,jd){const l1=getPLon(k,jd-0.5),l2=getPLon(k,jd+0.5);let d=l2-l1;if(d>180)d-=360;if(d<-180)d+=360;return d<0;}
+function nnLon(jd){const T=(jd-2451545)/36525;return norm(125.04452-1934.136261*T+0.0020708*T*T);}
+function chLon(jd){const T=(jd-2451545)/36525;return norm(209.15+50.3933*T+4*Math.sin(d2r(77+50.5*T)));}
+function calcAsc(jd,lat,lon){const T=(jd-2451545)/36525;const GMST=norm(280.46061837+360.98564736629*(jd-2451545)+0.000387933*T*T);const LST=norm(GMST+lon);const e=d2r(obliq(T)),R=d2r(LST),L=d2r(lat);const y=-Math.cos(R),x=Math.sin(R)*Math.cos(e)+Math.tan(L)*Math.sin(e);return norm(r2d(Math.atan2(y,x))+180);}
+function calcMC(jd,lon){const T=(jd-2451545)/36525;const GMST=norm(280.46061837+360.98564736629*(jd-2451545)+0.000387933*T*T);const LST=norm(GMST+lon);const e=d2r(obliq(T)),R=d2r(LST);return norm(r2d(Math.atan2(Math.sin(R)*Math.cos(e),Math.cos(R))));}
+function calcHousesPlacidus(jd,lat,lon){const asc=calcAsc(jd,lat,lon),mc=calcMC(jd,lon);const T=(jd-2451545)/36525,e=d2r(obliq(T)),L=d2r(lat);const GMST=norm(280.46061837+360.98564736629*(jd-2451545));const ramc=d2r(norm(GMST+lon));const houses=new Array(12);houses[0]=asc;houses[9]=mc;houses[3]=norm(mc+180);houses[6]=norm(asc+180);
+  function cuspP(f){let ra=ramc+f*Math.PI/2;for(let it=0;it<10;it++){const decl=Math.asin(Math.sin(e)*Math.sin(ra));const tanphi=Math.tan(L)*Math.tan(decl);if(Math.abs(tanphi)>1)break;const H=Math.acos(-tanphi);ra=ramc+f*H;}const lonE=Math.atan2(Math.sin(ra)*Math.cos(e)+Math.tan(d2r(lat))*Math.sin(e)*0,Math.cos(ra));return norm(r2d(Math.atan2(Math.sin(ra)*Math.cos(e),Math.cos(ra))));}
+  // Interpolación intermedia simple para casas 11,12,2,3 (semi-arcos)
+  try{const f3=1/3,f23=2/3;
+    houses[10]=intermediateCusp(ramc,e,L,f3,1);houses[11]=intermediateCusp(ramc,e,L,f23,1);
+    houses[1]=intermediateCusp(ramc,e,L,f3,-1)+0;houses[2]=intermediateCusp(ramc,e,L,f23,-1);
+    houses[1]=norm(intermediateCuspAsc(ramc,e,L,f3));houses[2]=norm(intermediateCuspAsc(ramc,e,L,f23));
+    houses[4]=norm(houses[10]+180);houses[5]=norm(houses[11]+180);houses[7]=norm(houses[1]+180);houses[8]=norm(houses[2]+180);
+  }catch(err){for(let i=0;i<12;i++)houses[i]=norm(asc+i*30);houses[9]=mc;houses[3]=norm(mc+180);}
+  for(let i=0;i<12;i++)if(isNaN(houses[i]))houses[i]=norm(asc+i*30);
+  return{houses,asc,mc};}
+function intermediateCusp(ramc,e,L,frac,dir){let ra=ramc+dir*frac*Math.PI/2;for(let it=0;it<8;it++){const decl=Math.asin(Math.sin(e)*Math.sin(ra));let tanphi=Math.tan(L)*Math.tan(decl);if(tanphi>1)tanphi=1;if(tanphi<-1)tanphi=-1;const sa=Math.acos(-tanphi);ra=ramc+dir*frac*sa*2;}return norm(r2d(Math.atan2(Math.sin(ra)*Math.cos(e),Math.cos(ra))));}
+function intermediateCuspAsc(ramc,e,L,frac){const mc=norm(r2d(Math.atan2(Math.sin(ramc)*Math.cos(e),Math.cos(ramc))));const ascRA=ramc+Math.PI;let ra=ramc+Math.PI/2+frac*Math.PI/2;for(let it=0;it<8;it++){const decl=Math.asin(Math.sin(e)*Math.sin(ra));let tanphi=Math.tan(L)*Math.tan(decl);if(tanphi>1)tanphi=1;if(tanphi<-1)tanphi=-1;const sa=Math.acos(-tanphi);ra=ramc+Math.PI/2+frac*(sa);}return norm(r2d(Math.atan2(Math.sin(ra)*Math.cos(e),Math.cos(ra))));}
+function whichHouse(lon,houses){const l=norm(lon);for(let i=0;i<12;i++){const s=norm(houses[i]),e=norm(houses[(i+1)%12]);if(e>s){if(l>=s&&l<e)return i+1;}else{if(l>=s||l<e)return i+1;}}return 1;}
+function fmt(lon,lang){const s=SIGNS_BY_LANG[lang][signOf(lon)],d=Math.floor(degIn(lon)),m=Math.floor((degIn(lon)-d)*60);return `${d}°${String(m).padStart(2,'0')}' ${s}`;}
+const BODIES={sol:{glyph:'☉',color:'#FFD700',es:'Sol',en:'Sun'},luna:{glyph:'☽',color:'#C8D8FF',es:'Luna',en:'Moon'},mercurio:{glyph:'☿',color:'#90C090',es:'Mercurio',en:'Mercury'},venus:{glyph:'♀',color:'#FFB0C8',es:'Venus',en:'Venus'},marte:{glyph:'♂',color:'#FF6050',es:'Marte',en:'Mars'},jupiter:{glyph:'♃',color:'#FFA040',es:'Júpiter',en:'Jupiter'},saturno:{glyph:'♄',color:'#C8A060',es:'Saturno',en:'Saturn'},urano:{glyph:'♅',color:'#50D8FF',es:'Urano',en:'Uranus'},neptuno:{glyph:'♆',color:'#5060FF',es:'Neptuno',en:'Neptune'},pluton:{glyph:'♇',color:'#C060FF',es:'Plutón',en:'Pluto'},nodoNorte:{glyph:'☊',color:'#70D070',es:'Nodo Norte',en:'North Node'},chiron:{glyph:'⚷',color:'#D0A0C0',es:'Quirón',en:'Chiron'}};
+const ASPECTS=[{es:'Conjunción',en:'Conjunction',angle:0,orb:8,type:'neutral',sym:'☌',color:'#D4AF37'},{es:'Sextil',en:'Sextile',angle:60,orb:5,type:'harmonic',sym:'⚹',color:'#60D0FF'},{es:'Cuadratura',en:'Square',angle:90,orb:7,type:'tense',sym:'□',color:'#FF7070'},{es:'Trígono',en:'Trine',angle:120,orb:7,type:'harmonic',sym:'△',color:'#6BDA8A'},{es:'Quincuncio',en:'Quincunx',angle:150,orb:3,type:'neutral',sym:'⚻',color:'#C0A0FF'},{es:'Oposición',en:'Opposition',angle:180,orb:8,type:'tense',sym:'☍',color:'#FF9060'}];
+function calcAspects(pos,lang){const keys=Object.keys(pos).filter(k=>k!=='ascendente'&&k!=='mc');const out=[];for(let i=0;i<keys.length;i++)for(let j=i+1;j<keys.length;j++){let diff=Math.abs(pos[keys[i]].lon-pos[keys[j]].lon);if(diff>180)diff=360-diff;for(const a of ASPECTS){const o=Math.abs(diff-a.angle);if(o<=a.orb)out.push({p1:keys[i],p2:keys[j],name:a[lang],type:a.type,sym:a.sym,color:a.color,orb:parseFloat(o.toFixed(1))});}}return out.sort((a,b)=>a.orb-b.orb);}
 
-// ═══════════════════════════════════════════
-// PLANET DETAIL MODAL
-// ═══════════════════════════════════════════
-const SIGN_DESCRIPTIONS={
-  Aries:{
-    keywords:'pionero/a, directo/a, impulsivo/a, valiente, independiente',
-    strengths:'Liderazgo natural, iniciativa, valentía y capacidad de acción inmediata.',
-    challenges:'Impaciencia, impulsividad y tendencia a no terminar lo que empieza.',
-    soul:'Aprender a actuar con conciencia, no solo con impulso.',
-    famous:'Aries representa el arquetipo del Guerrero, el primero en dar el paso.'
-  },
-  Tauro:{
-    keywords:'sensual, persistente, estable, materialista, placentero/a',
-    strengths:'Perseverancia, sentido práctico, lealtad y gusto por los placeres terrenales.',
-    challenges:'Terquedad, resistencia al cambio y apego excesivo.',
-    soul:'Encontrar el valor real más allá de lo material.',
-    famous:'Tauro encarna el arquetipo del Constructor, paciente y sólido.'
-  },
-  'Géminis':{
-    keywords:'curioso/a, comunicativo/a, versátil, adaptable, intelectual',
-    strengths:'Mente ágil, habilidad comunicativa, curiosidad insaciable.',
-    challenges:'Dispersión mental, superficialidad y dificultad para comprometerse.',
-    soul:'Unir los opuestos internos y encontrar coherencia.',
-    famous:'Géminis representa el arquetipo del Mensajero y el Mediador.'
-  },
-  'Cáncer':{
-    keywords:'intuitivo/a, empático/a, protector/a, sensible, maternal/paternal',
-    strengths:'Intuición profunda, empatía, capacidad de nutrir y proteger.',
-    challenges:'Hipersensibilidad, apego y tendencia a cerrarse emocionalmente.',
-    soul:'Aprender a dar cuidado sin perder el propio centro.',
-    famous:'Cáncer encarna el arquetipo de la Gran Madre o el Ancestro.'
-  },
-  Leo:{
-    keywords:'creativo/a, generoso/a, magnético/a, orgulloso/a, dramático/a',
-    strengths:'Carisma natural, generosidad, capacidad creativa y liderazgo inspirador.',
-    challenges:'Ego desmedido, necesidad de validación y drama.',
-    soul:'Brillar desde el corazón, no desde el ego.',
-    famous:'Leo representa el arquetipo del Rey/Reina y el Artista.'
-  },
-  Virgo:{
-    keywords:'analítico/a, servicial, perfeccionista, práctico/a, meticuloso/a',
-    strengths:'Análisis preciso, capacidad de servicio, atención al detalle.',
-    challenges:'Autocrítica excesiva, ansiedad y obsesión por la perfección.',
-    soul:'Aprender que el servicio nace del amor, no de la obligación.',
-    famous:'Virgo encarna el arquetipo del Sanador y el Artesano.'
-  },
-  Libra:{
-    keywords:'diplomático/a, estético/a, justo/a, equilibrado/a, social',
-    strengths:'Sentido de la justicia, belleza, diplomacia y habilidad relacional.',
-    challenges:'Indecisión, dependencia del otro y evitar el conflicto a toda costa.',
-    soul:'Encontrar el propio centro sin depender de la aprobación ajena.',
-    famous:'Libra representa el arquetipo del Amante y el Mediador.'
-  },
-  Escorpio:{
-    keywords:'intenso/a, transformador/a, perspicaz, apasionado/a, misterioso/a',
-    strengths:'Profundidad psicológica, poder de regeneración y verdad.',
-    challenges:'Celos, manipulación y dificultad para soltar el control.',
-    soul:'Morir y renacer; transformar el veneno en medicina.',
-    famous:'Escorpio encarna el arquetipo del Chamán y el Detective.'
-  },
-  Sagitario:{
-    keywords:'filosófico/a, aventurero/a, optimista, honesto/a, expansivo/a',
-    strengths:'Visión de futuro, entusiasmo, búsqueda de verdad y amor por la libertad.',
-    challenges:'Excesos, falta de tacto y prometer más de lo que puede cumplir.',
-    soul:'Encontrar la verdad interior sin buscarla solo afuera.',
-    famous:'Sagitario representa el arquetipo del Filósofo y el Explorador.'
-  },
-  Capricornio:{
-    keywords:'ambicioso/a, disciplinado/a, responsable, estratégico/a, austero/a',
-    strengths:'Determinación, capacidad de construir legado, paciencia y realismo.',
-    challenges:'Frialdad emocional, exceso de control y miedo al fracaso.',
-    soul:'Aprender que el éxito más profundo es interno.',
-    famous:'Capricornio encarna el arquetipo del Padre, el Anciano Sabio.'
-  },
-  Acuario:{
-    keywords:'original, humanitario/a, visionario/a, rebelde, independiente',
-    strengths:'Pensamiento innovador, visión colectiva, originalidad y altruismo.',
-    challenges:'Frialdad emocional, rebeldía por principio y desconexión.',
-    soul:'Conectar la visión colectiva con el amor individual.',
-    famous:'Acuario representa el arquetipo del Visionario y el Reformador.'
-  },
-  Piscis:{
-    keywords:'compasivo/a, espiritual, intuitivo/a, artístico/a, soñador/a',
-    strengths:'Compasión universal, creatividad, conexión espiritual y empatía.',
-    challenges:'Evasión, confusión de límites y tendencia al sacrificio.',
-    soul:'Aprender a disolver el ego desde el amor, no desde la huida.',
-    famous:'Piscis encarna el arquetipo del Místico y el Artista.'
-  }
-};
+function calculateChart(data){const lang=data.lang||'es';const jd=julianDay(data.year,data.month,data.day,data.hour,data.minute,data.tz);const hd=calcHousesPlacidus(jd,data.lat,data.lon);const houses=hd.houses;const pos={};
+  const lons={sol:sunLon(jd),luna:moonLon(jd)};const pl=planetLons(jd);lons.mercurio=pl.mercury;lons.venus=pl.venus;lons.marte=pl.mars;lons.jupiter=pl.jupiter;lons.saturno=pl.saturn;lons.urano=pl.uranus;lons.neptuno=pl.neptune;lons.pluton=pl.pluto;lons.nodoNorte=nnLon(jd);lons.chiron=chLon(jd);
+  const retroK=['mercurio','venus','marte','jupiter','saturno','urano','neptuno','pluton'];
+  Object.keys(BODIES).forEach(k=>{const lon=lons[k],si=signOf(lon);pos[k]={lon,name:BODIES[k][lang],glyph:BODIES[k].glyph,color:BODIES[k].color,sign:si,signName:SIGNS_BY_LANG[lang][si],signGlyph:SIGN_GLYPHS[si],element:ELEMENTS_BY_LANG[lang][si%4],modality:MODALITIES_BY_LANG[lang][si%3],degInSign:degIn(lon),house:whichHouse(lon,houses),formatted:fmt(lon,lang),retro:retroK.includes(k)?isRetro(k,jd):false};});
+  const aSi=signOf(hd.asc);pos.ascendente={lon:hd.asc,name:I18n.t('ascendant'),glyph:'Asc',color:'#D4AF37',sign:aSi,signName:SIGNS_BY_LANG[lang][aSi],signGlyph:SIGN_GLYPHS[aSi],element:ELEMENTS_BY_LANG[lang][aSi%4],modality:MODALITIES_BY_LANG[lang][aSi%3],degInSign:degIn(hd.asc),house:1,formatted:fmt(hd.asc,lang)};
+  const mSi=signOf(hd.mc);pos.mc={lon:hd.mc,name:lang==='en'?'Midheaven':'Medio Cielo',glyph:'MC',color:'#D4AF37',sign:mSi,signName:SIGNS_BY_LANG[lang][mSi],signGlyph:SIGN_GLYPHS[mSi],element:ELEMENTS_BY_LANG[lang][mSi%4],modality:MODALITIES_BY_LANG[lang][mSi%3],degInSign:degIn(hd.mc),house:10,formatted:fmt(hd.mc,lang)};
+  const aspects=calcAspects(pos,lang);
+  const elemCount={Fuego:0,Tierra:0,Aire:0,Agua:0},elemEn={Fire:0,Earth:0,Air:0,Water:0};const modCount={Cardinal:0,Fijo:0,Mutable:0},modEn={Cardinal:0,Fixed:0,Mutable:0};
+  ['sol','luna','mercurio','venus','marte','jupiter','saturno','ascendente'].forEach(k=>{if(pos[k]){const ce=canonElem(pos[k].sign),cm=canonMod(pos[k].sign);elemEn[ce]++;modEn[cm]++;}});
+  // mantener compatibilidad: claves en español
+  elemCount.Fuego=elemEn.Fire;elemCount.Tierra=elemEn.Earth;elemCount.Aire=elemEn.Air;elemCount.Agua=elemEn.Water;modCount.Cardinal=modEn.Cardinal;modCount.Fijo=modEn.Fixed;modCount.Mutable=modEn.Mutable;
+  const housesF=houses.map(h=>({cusp:h,sign:signOf(h)}));
+  return{name:data.name,birth:{...data,jd},ascendant:pos.ascendente,mc:pos.mc,houses:housesF,planets:pos,aspects,elemCount,modCount,lang,_elemEn:elemEn,_modEn:modEn};}
 
-function getSignKeywords(signIndex){
-  const s=SIGNS[signIndex];
-  return SIGN_DESCRIPTIONS[s]?.keywords || 'énfasis en sus cualidades únicas';
-}
-
-const PLANET_DETAIL_TEXT={
-  sol:`El Sol representa tu esencia más profunda — quién eres cuando estás completamente vivo/a. Es tu fuerza vital, tu propósito y la razón por la que existes. El signo solar describe cómo expresas tu identidad central y qué necesitas para brillar.`,
-  luna:`La Luna gobierna tu mundo emocional, tus instintos, tu memoria inconsciente y cómo te nutres internamente. Revela cómo reaccionas emocionalmente, qué necesitas para sentirte seguro/a y tu vínculo con lo femenino y lo materno.`,
-  ascendente:`El Ascendente (o Ascendente natal) es el signo que se levantaba en el horizonte oriental en el momento de tu nacimiento. Define tu máscara social, tu apariencia, la primera impresión que das y el filtro a través del cual percibes el mundo.`,
-};
-
-function showPlanetDetail(key){
-  const p=chartData.positions[key];
-  const sd=SIGN_DESCRIPTIONS[p.signName]||{};
-  const mod=p.modality, elem=p.element;
-  const pText=PLANET_DETAIL_TEXT[key]||`Este punto astrológico ocupa ${p.signName} en tu carta.`;
-
-  document.getElementById('modal-title').textContent=`${p.glyph} ${p.name} en ${p.signName}`;
-  document.getElementById('modal-content').innerHTML=`
-    <div class="modal-section">
-      <span class="modality-badge badge-${mod==='Cardinal'?'cardinal':mod==='Fijo'?'fixed':'mutable'}">${mod}</span>
-      &nbsp;<span style="font-size:0.8rem;color:${ELEM_COLORS[elem]}">● ${elem}</span>
-      <p class="modal-text" style="margin-top:0.6rem">${pText}</p>
-    </div>
-    <div class="modal-section">
-      <div class="modal-section-title">${p.signGlyph} En ${p.signName} — Casa ${p.house}</div>
-      <p class="modal-text"><strong>Palabras clave:</strong> ${sd.keywords||'—'}</p>
-    </div>
-    <div class="modal-section">
-      <div class="modal-section-title">Fortalezas</div>
-      <p class="modal-text">${sd.strengths||'—'}</p>
-    </div>
-    <div class="modal-section">
-      <div class="modal-section-title">Desafíos</div>
-      <p class="modal-text">${sd.challenges||'—'}</p>
-    </div>
-    <div class="modal-section">
-      <div class="modal-section-title">Propósito del alma</div>
-      <p class="modal-text">${sd.soul||'—'}</p>
-    </div>
-    <div class="modal-section">
-      <div class="modal-section-title">Modalidad: ${mod}</div>
-      <p class="modal-text">${mod==='Cardinal'?'Los signos cardinales inician, lideran y crean movimiento. Son energías de comienzo.':mod==='Fijo'?'Los signos fijos estabilizan, profundizan y mantienen. Son energías de resistencia y determinación.':'Los signos mutables adaptan, sintetizan y evolucionan. Son energías de transición y versatilidad.'}</p>
-    </div>
-    <div class="modal-section">
-      <div class="modal-section-title">Elemento: ${elem}</div>
-      <p class="modal-text">${elem==='Fuego'?'El Fuego aporta entusiasmo, visión e inspiración. Necesita libertad y propósito.':elem==='Tierra'?'La Tierra aporta concreción, pragmatismo y paciencia. Necesita seguridad y resultados tangibles.':elem==='Aire'?'El Aire aporta intelecto, comunicación y perspectiva. Necesita estímulo mental y conexión social.':'El Agua aporta emoción, intuición y profundidad. Necesita conexión emocional y significado.'}</p>
-    </div>
-    <div class="modal-section">
-      <div class="modal-section-title">Arquetipo</div>
-      <p class="modal-text">${sd.famous||'—'}</p>
-    </div>
-  `;
-  document.getElementById('modal-overlay').classList.add('active');
-}
-
-function closeModal(){
-  document.getElementById('modal-overlay').classList.remove('active');
-}
-
-// ═══════════════════════════════════════════
-// INTERPRETATIONS
-// ═══════════════════════════════════════════
-function renderInterpretations(){
-  const container=document.getElementById('interpretations');
-  const p=chartData.positions;
-  const sun=p.sol, moon=p.luna, asc=p.ascendente;
-  // Dominant element
-  const domElem=Object.entries(chartData.elemCount).sort((a,b)=>b[1]-a[1])[0][0];
-  const domMod=Object.entries(chartData.modCount).sort((a,b)=>b[1]-a[1])[0][0];
-
-  container.innerHTML=`
-    <div class="interp-card">
-      <div class="interp-title">☉ Sol en ${sun.signName} (Casa ${sun.house}) — Tu Propósito</div>
-      <div class="interp-text">Tu Sol en <strong>${sun.signName}</strong> te define como ${SIGN_DESCRIPTIONS[sun.signName]?.keywords||'único/a'}. En la Casa ${sun.house}, tu propósito se vive en el área de ${HOUSE_MEANINGS[sun.house-1].toLowerCase()}. Tu alma brilla cuando permite que su naturaleza ${sun.signName.toLowerCase()} guíe sus decisiones más importantes. <em>Modalidad ${sun.modality} · Elemento ${sun.element}.</em></div>
-      <button class="expand-btn" onclick="showPlanetDetail('sol')">✦ Ampliar: Sol en ${sun.signName}</button>
-    </div>
-    <div class="interp-card">
-      <div class="interp-title">☽ Luna en ${moon.signName} (Casa ${moon.house}) — Tu Mundo Interior</div>
-      <div class="interp-text">Tu Luna en <strong>${moon.signName}</strong> revela que emocionalmente eres ${SIGN_DESCRIPTIONS[moon.signName]?.keywords||'profundo/a'}. Necesitas ${moon.element==='Agua'?'conexión emocional profunda':moon.element==='Tierra'?'seguridad y estabilidad concreta':moon.element==='Fuego'?'entusiasmo y movimiento':'estimulación mental'} para sentirte seguro/a. En la Casa ${moon.house}, tus emociones se expresan en el área de ${HOUSE_MEANINGS[moon.house-1].toLowerCase()}.</div>
-      <button class="expand-btn" onclick="showPlanetDetail('luna')">✦ Ampliar: Luna en ${moon.signName}</button>
-    </div>
-    <div class="interp-card">
-      <div class="interp-title">↑ Ascendente en ${asc.signName} — Tu Presencia</div>
-      <div class="interp-text">Con <strong>${asc.signName}</strong> ascendiendo, el mundo te percibe como ${SIGN_DESCRIPTIONS[asc.signName]?.keywords||'magnético/a'}. Tu primera impresión y manera de proyectarte llevan la energía ${asc.modality.toLowerCase()} de ${asc.signName}, con el elemento <span style="color:${ELEM_COLORS[asc.element]}">${asc.element}</span> como filtro de percepción.</div>
-      <button class="expand-btn" onclick="showPlanetDetail('ascendente')">✦ Ampliar: Ascendente en ${asc.signName}</button>
-    </div>
-    <div class="interp-card">
-      <div class="interp-title">✦ Perfil Elemental y Modal</div>
-      <div class="interp-text">Tu carta tiene predominio de <strong style="color:${ELEM_COLORS[domElem]}">${domElem}</strong> — ${domElem==='Fuego'?'eres un alma apasionada que necesita propósito y acción':domElem==='Tierra'?'eres un alma práctica que necesita construir cosas concretas':domElem==='Aire'?'eres un alma mental que vive en el mundo de las ideas y conexiones':'eres un alma emocional que siente antes de pensar'}. En modalidad, predomina <strong style="color:${MOD_COLORS[domMod]}">${domMod}</strong> — ${domMod==='Cardinal'?'tienes el impulso de iniciar y crear':domMod==='Fijo'?'tienes la determinación de mantener y profundizar':'tienes la flexibilidad de adaptarte y evolucionar'}. Habla con Selene para profundizar en cualquier aspecto.</div>
-    </div>
-  `;
-}
-
-// ═══════════════════════════════════════════
-// CHAT — SELENE
-// ═══════════════════════════════════════════
-function buildChartContext(){
-  const p=chartData.positions;
-  let ctx=`CARTA NATAL DE ${chartData.name.toUpperCase()}\n`;
-  ctx+=`Nacimiento: ${chartData.day}/${chartData.month}/${chartData.year} a las ${String(chartData.hour).padStart(2,'0')}:${String(chartData.min).padStart(2,'0')} en ${chartData.city||'lugar desconocido'} (Lat:${chartData.lat} Lon:${chartData.lon} UTC${chartData.tz>=0?'+':''}${chartData.tz})\n\n`;
-  ctx+=`POSICIONES PLANETARIAS:\n`;
-  const keys=['sol','luna','ascendente','mc','mercurio','venus','marte','jupiter','saturno','urano','neptuno','pluton','nodoNorte','chiron'];
-  keys.forEach(k=>{
-    const pl=p[k]; if(!pl) return;
-    ctx+=`${pl.name}: ${pl.signName} ${Math.floor(pl.degInSign)}° — Casa ${pl.house} — ${pl.modality} — ${pl.element}${pl.retro?' (Retrógrado)':''}\n`;
-  });
-  ctx+=`\nELEMENTOS: Fuego ${chartData.elemCount.Fuego}, Tierra ${chartData.elemCount.Tierra}, Aire ${chartData.elemCount.Aire}, Agua ${chartData.elemCount.Agua}\n`;
-  ctx+=`MODALIDADES: Cardinal ${chartData.modCount.Cardinal}, Fijo ${chartData.modCount.Fijo}, Mutable ${chartData.modCount.Mutable}\n`;
-  ctx+=`\nCASAS ASTROLÓGICAS (sistema igual):\n`;
-  chartData.houses.forEach((lon,i)=>{
-    ctx+=`Casa ${i+1}: ${SIGNS[signOf(lon)]} ${Math.floor(lon%30)}° — ${HOUSE_MEANINGS[i]}\n`;
-  });
-  ctx+=`\nASPECTOS PRINCIPALES (por exactitud):\n`;
-  chartData.aspects.slice(0,15).forEach(a=>{
-    const p1=p[a.p1], p2=p[a.p2];
-    if(p1&&p2) ctx+=`${p1.name} ${a.name} ${p2.name} (orbe ${a.orb}°, ${a.type==='harmonic'?'armónico':a.type==='tense'?'tenso':'neutro'})\n`;
-  });
-  return ctx;
-}
-
-function initChat(){
-  chatHistory=[];
-  const ctx=buildChartContext();
-  window._systemPrompt=`Eres Selene, una astróloga experta con 20 años de experiencia en astrología occidental. Tienes acceso completo a la siguiente carta natal:
-
-${ctx}
-
-INSTRUCCIONES:
-- Responde siempre en español, con un tono cálido, místico y profundo pero accesible.
-- Usa los datos REALES de la carta. Menciona planetas, signos, casas, aspectos y elementos de forma precisa.
-- Cuando alguien pregunta por Sol, Luna o Ascendente, incluye el signo, la modalidad (Cardinal/Fijo/Mutable) y el elemento (Fuego/Tierra/Aire/Agua).
-- Habla de aspectos concretos cuando sea relevante (ej: "con tu Venus en cuadratura a Saturno...").
-- Si preguntan por una casa específica, explica qué rige esa casa y qué planetas hay en ella.
-- Máximo 3-4 párrafos por respuesta. Sé profunda pero concisa.
-- Puedes usar ✦ y ☽ ocasionalmente para dar tono místico, pero no en exceso.`;
-
-  setTimeout(()=>addMessage('assistant',
-    `Hola, ${chartData.name} ✦ Soy Selene. He trazado los cielos del momento de tu nacimiento y tu carta natal revela una configuración fascinante.\n\nTu **Sol en ${chartData.positions.sol.signName}** (${chartData.positions.sol.modality}, ${chartData.positions.sol.element}), **Luna en ${chartData.positions.luna.signName}** y **Ascendente en ${chartData.positions.ascendente.signName}** forman una trinidad única. Tu elemento dominante es **${Object.entries(chartData.elemCount).sort((a,b)=>b[1]-a[1])[0][0]}** y tu modalidad predominante es **${Object.entries(chartData.modCount).sort((a,b)=>b[1]-a[1])[0][0]}**.\n\n¿Sobre qué aspecto de tu carta quieres explorar primero?`
-  ),300);
-}
-
-function addMessage(role,content){
-  const messages=document.getElementById('chat-messages');
-  const typing=document.getElementById('typing');
-  const div=document.createElement('div');
-  div.className=`msg ${role}`;
-  const label=role==='assistant'?'Selene':'Tú';
-  const formatted=content
-    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
-    .replace(/\*(.*?)\*/g,'<em>$1</em>')
-    .replace(/\n/g,'<br>');
-  div.innerHTML=`<div class="msg-label">${label}</div><div class="msg-bubble">${formatted}</div>`;
-  messages.insertBefore(div,typing);
-  messages.scrollTop=messages.scrollHeight;
-}
-
-function sendSuggestion(el){
-  const text=el.textContent;
-  document.getElementById('chat-input').value=text;
-  document.getElementById('suggestions').style.display='none';
-  sendMessage();
-}
-
-async function sendMessage(){
-  const input=document.getElementById('chat-input');
-  const text=input.value.trim(); if(!text) return;
-  input.value=''; input.style.height='';
-  addMessage('user',text);
-  chatHistory.push({role:'user',content:text});
-  const typing=document.getElementById('typing');
-  const btn=document.getElementById('btn-send');
-  typing.classList.add('active'); btn.disabled=true;
-  document.getElementById('chat-messages').scrollTop=9999;
-  try{
-    const response=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-6',
-        max_tokens:1000,
-        system:window._systemPrompt,
-        messages:chatHistory
-      })
-    });
-    const data=await response.json();
-    const reply=data.content?.map(c=>c.text||'').join('')||'Lo siento, no pude procesar tu pregunta en este momento.';
-    chatHistory.push({role:'assistant',content:reply});
-    typing.classList.remove('active');
-    addMessage('assistant',reply);
-  }catch(e){
-    typing.classList.remove('active');
-    addMessage('assistant','Hubo un error al conectar. Verifica tu conexión e intenta de nuevo.');
-  }
-  btn.disabled=false;
-}
-
-function autoResize(el){
-  el.style.height='';
-  el.style.height=Math.min(el.scrollHeight,100)+'px';
-}
-
-function resetApp(){
-  document.getElementById('app').classList.remove('active');
-  document.getElementById('landing').style.display='flex';
-  chatHistory=[]; chartData=null;
-  document.getElementById('chat-messages').innerHTML=`<div class="typing-indicator" id="typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
-  document.getElementById('suggestions').style.display='flex';
-}
+// ═══════ STATE & APP ═══════
+let chartData=null,chatHistory=[],chartMode='2d',apiKey='';
+function startCalculation(){const name=document.getElementById('f-name').value.trim()||'Usuario';const dv=document.getElementById('f-date').value;const tv=document.getElementById('f-time').value||'12:00';const lat=parseFloat(document.getElementById('f-lat').value)||4.711;const lon=parseFloat(document.getElementById('f-lon').value)||-74.0721;const tz=parseFloat(document.getElementById('f-tz').value)||-5;const city=document.getElementById('f-city').value||'';apiKey=document.getElementById('f-apikey').value.trim();if(apiKey)localStorage.setItem('af_key',apiKey);if(!dv){alert(I18n.t('error_no_date'));return;}const[y,m,d]=dv.split('-').map(Number);const[h,mi]=tv.split(':').map(Number);document.getElementById('landing').style.display='none';document.getElementById('loading').classList.add('active');setTimeout(()=>{chartData=calculateChart({name,year:y,month:m,day:d,hour:h,minute:mi,lat,lon,tz,city,lang:I18n.current});chartData.positions=chartData.planets;chartData.asc=chartData.ascendant.lon;chartData.mc=chartData.mc.lon;chartData.houses=chartData.houses.map(x=>x.cusp);window.chartData=chartData;renderApp();},2200);}
+function renderApp(){if(!chartData)return;document.getElementById('loading').classList.remove('active');document.getElementById('app').classList.add('active');document.getElementById('header-name').textContent=chartData.name;updateLangButtons();renderTrinity();renderChartCanvas();renderElemModal();renderPlanetsGrid();renderHousesGrid();renderAspects();renderInterpretations();if(chatHistory.length===0)initChat();}
+window.renderApp=renderApp;
+function renderTrinity(){const p=chartData.positions;const items=[{k:'sol',e:'☉',l:I18n.t('sun'),c:'#FFD700'},{k:'luna',e:'☽',l:I18n.t('moon'),c:'#C8D8FF'},{k:'ascendente',e:'↑',l:I18n.t('ascendant'),c:'#D4AF37'}];document.getElementById('trinity-cards').innerHTML=items.map(it=>{const pl=p[it.k];return `<div class="trinity-card" onclick="showPlanetDetail('${it.k}')"><span class="tc-glyph" style="color:${it.c}">${it.e}</span><div class="tc-label">${it.l}</div><div class="tc-value">${SIGN_GLYPHS[pl.sign]} ${I18n.signName(pl.sign)}</div><div class="tc-detail">${Math.floor(pl.degInSign)}° · ${I18n.t('house')} ${pl.house}</div><div class="tc-detail" style="margin-top:0.2rem"><span style="font-size:0.65rem;color:${MOD_COLORS[canonMod(pl.sign)]}">${I18n.modName(canonMod(pl.sign))}</span> · <span style="font-size:0.65rem;color:${ELEM_COLORS[canonElem(pl.sign)]}">${I18n.elemName(canonElem(pl.sign))}</span></div><div class="tc-expand">${I18n.t('expand_info')}</div></div>`;}).join('');}
+function setChartMode(m){chartMode=m;document.getElementById('btn-2d').classList.toggle('active',m==='2d');document.getElementById('btn-3d').classList.toggle('active',m==='3d');renderChartCanvas();}
+function renderChartCanvas(){const cv=document.getElementById('natal-canvas'),ctx=cv.getContext('2d');const W=480,H=480;cv.width=W;cv.height=H;ctx.clearRect(0,0,W,H);const cx=W/2,cy=H/2,is3d=chartMode==='3d',sy=is3d?0.7:1,sh=is3d?18:0;
+  function pj(a,r){const ar=d2r(a-90);return{x:cx+r*Math.cos(ar),y:cy+r*Math.sin(ar)*sy};}
+  function arc(r,s,e,st,lw=1){if(is3d&&sh>0){ctx.save();ctx.beginPath();ctx.strokeStyle='rgba(0,0,0,0.4)';ctx.lineWidth=lw+1;for(let a=s;a<=e;a+=0.5){const p=pj(a,r);a===s?ctx.moveTo(p.x+sh*0.3,p.y+sh):ctx.lineTo(p.x+sh*0.3,p.y+sh);}ctx.stroke();ctx.restore();}ctx.beginPath();ctx.strokeStyle=st;ctx.lineWidth=lw;for(let a=s;a<=e;a+=0.5){const p=pj(a,r);a===s?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y);}ctx.stroke();}
+  function ring(ri,ro,s,e,fs){ctx.beginPath();for(let a=s;a<=e;a+=0.5){const p=pj(a,ro);a===s?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y);}for(let a=e;a>=s;a-=0.5){const p=pj(a,ri);ctx.lineTo(p.x,p.y);}ctx.closePath();ctx.fillStyle=fs;ctx.fill();}
+  if(is3d){const g=ctx.createRadialGradient(cx,cy+20,0,cx,cy+20,220);g.addColorStop(0,'rgba(30,10,70,0.5)');g.addColorStop(0.5,'rgba(10,5,40,0.3)');g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);}
+  const RO=210,RZ=158,RH=148,RP=125,RC=55,asc=chartData.asc;const ecm={0:'rgba(255,80,60,0.22)',1:'rgba(120,100,60,0.22)',2:'rgba(100,190,220,0.22)',3:'rgba(60,120,200,0.22)',4:'rgba(255,120,40,0.22)',5:'rgba(100,150,80,0.22)',6:'rgba(130,200,240,0.22)',7:'rgba(120,30,40,0.22)',8:'rgba(160,60,220,0.22)',9:'rgba(70,90,110,0.22)',10:'rgba(50,200,200,0.22)',11:'rgba(80,100,200,0.22)'};const sc=['#FF6B6B','#8B7355','#87CEEB','#4A90D9','#FFD700','#90C060','#DDA0DD','#B22222','#9400D3','#708090','#40E0D0','#7B68EE'];
+  for(let i=0;i<12;i++)ring(RZ,RO,i*30-asc,(i+1)*30-asc+0.5,ecm[i]);arc(RO,0,360,'rgba(212,175,55,0.5)',1.5);arc(RZ,0,360,'rgba(212,175,55,0.3)',1);
+  for(let i=0;i<12;i++){const a=i*30-asc,p1=pj(a,RZ),p2=pj(a,RO);ctx.beginPath();ctx.strokeStyle='rgba(212,175,55,0.35)';ctx.lineWidth=0.8;ctx.moveTo(p1.x,p1.y);ctx.lineTo(p2.x,p2.y);ctx.stroke();const gp=pj(a+15,(RZ+RO)/2);ctx.font='16px serif';ctx.fillStyle=sc[i];ctx.textAlign='center';ctx.textBaseline='middle';ctx.shadowColor=sc[i];ctx.shadowBlur=is3d?6:3;ctx.fillText(SIGN_GLYPHS[i],gp.x,gp.y);ctx.shadowBlur=0;}
+  arc(RH,0,360,'rgba(107,63,160,0.4)',1);arc(RC,0,360,'rgba(107,63,160,0.2)',0.8);
+  for(let i=0;i<12;i++){const ha=chartData.houses[i]-asc,p1=pj(ha,RH),p2=pj(ha,RZ),iA=[0,3,6,9].includes(i);ctx.beginPath();ctx.strokeStyle=iA?'rgba(212,175,55,0.8)':'rgba(107,63,160,0.45)';ctx.lineWidth=iA?1.5:0.7;ctx.moveTo(p1.x,p1.y);ctx.lineTo(p2.x,p2.y);ctx.stroke();const hm=pj(chartData.houses[i]+15-asc,RH-16);ctx.font='9px Inter';ctx.fillStyle='rgba(107,63,160,0.8)';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(i+1,hm.x,hm.y);}
+  const dr=new Set(),acm={harmonic:'rgba(80,180,255,0.35)',tense:'rgba(255,80,80,0.35)',neutral:'rgba(200,170,50,0.25)'};chartData.aspects.slice(0,20).forEach(a=>{const p1=chartData.positions[a.p1],p2=chartData.positions[a.p2];if(!p1||!p2)return;const k=[a.p1,a.p2].sort().join(':');if(dr.has(k))return;dr.add(k);const a1=pj(p1.lon-asc,RH-4),a2=pj(p2.lon-asc,RH-4);ctx.beginPath();ctx.strokeStyle=acm[a.type];ctx.lineWidth=0.9;ctx.moveTo(a1.x,a1.y);ctx.lineTo(a2.x,a2.y);ctx.stroke();});
+  const plt={};['sol','luna','mercurio','venus','marte','jupiter','saturno','urano','neptuno','pluton','nodoNorte','chiron'].forEach(k=>{const p=chartData.positions[k];if(!p)return;let ang=p.lon-asc;Object.values(plt).forEach(pr=>{let d=Math.abs(norm(p.lon)-norm(pr));if(d>180)d=360-d;if(d<6)ang+=7;});plt[k]=p.lon;const pt=pj(ang,RP);if(is3d){const gr=ctx.createRadialGradient(pt.x,pt.y,2,pt.x,pt.y,14);gr.addColorStop(0,p.color+'44');gr.addColorStop(1,p.color+'00');ctx.fillStyle=gr;ctx.beginPath();ctx.arc(pt.x,pt.y,14,0,Math.PI*2);ctx.fill();}ctx.beginPath();ctx.arc(pt.x,pt.y,11,0,Math.PI*2);ctx.fillStyle=p.color+'20';ctx.fill();ctx.strokeStyle=p.color+'80';ctx.lineWidth=1;ctx.stroke();ctx.font=`${is3d?13:12}px serif`;ctx.fillStyle=p.color;ctx.textAlign='center';ctx.textBaseline='middle';if(is3d){ctx.shadowColor=p.color;ctx.shadowBlur=8;}ctx.fillText(p.glyph,pt.x,pt.y);ctx.shadowBlur=0;if(p.retro){ctx.font='7px Inter';ctx.fillStyle='#E07070';ctx.fillText('℞',pt.x+9,pt.y-9);}const ep=pj(ang,RH-2);ctx.beginPath();ctx.strokeStyle=p.color+'35';ctx.lineWidth=0.5;ctx.moveTo(pt.x,pt.y);ctx.lineTo(ep.x,ep.y);ctx.stroke();});
+  const ap=pj(0,RP-5),mp=pj(chartData.mc-asc,RP-5);ctx.font='9px Inter';ctx.fillStyle='#D4AF37';ctx.textAlign='center';ctx.textBaseline='middle';ctx.shadowColor='#D4AF37';ctx.shadowBlur=6;ctx.fillText('Asc',ap.x,ap.y);ctx.fillText('MC',mp.x,mp.y);ctx.shadowBlur=0;
+  if(is3d){const cg=ctx.createRadialGradient(cx,cy,0,cx,cy,RC);cg.addColorStop(0,'rgba(212,175,55,0.12)');cg.addColorStop(1,'rgba(107,63,160,0.05)');ctx.fillStyle=cg;ctx.beginPath();ctx.arc(cx,cy,RC,0,Math.PI*2);ctx.fill();}ctx.font='30px serif';ctx.fillStyle='rgba(212,175,55,0.25)';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('⊕',cx,cy-6);ctx.font='8px Cormorant Garamond,serif';ctx.fillStyle='rgba(255,255,255,0.2)';ctx.fillText(chartData.name.toUpperCase(),cx,cy+14);}
+function downloadChart(){const c=document.getElementById('natal-canvas'),a=document.createElement('a');a.href=c.toDataURL('image/png');a.download=`astrofriend-${chartData.name.replace(/ /g,'_')}.png`;a.click();}
+function renderElemModal(){const ee=chartData._elemEn,me=chartData._modEn;const tE=Object.values(ee).reduce((a,b)=>a+b,0)||1,tM=Object.values(me).reduce((a,b)=>a+b,0)||1;const eH=`<div class="interp-card" style="margin-bottom:0"><div class="interp-title" style="font-size:0.95rem">${I18n.t('elements')}</div><div class="stats-bars">${ELEM_INDEX.map(c=>`<div class="stat-row"><div class="stat-label" style="color:${ELEM_COLORS[c]}">${I18n.elemName(c)}</div><div class="stat-bar-bg"><div class="stat-bar-fill" style="width:${(ee[c]/tE*100).toFixed(0)}%;background:${ELEM_COLORS[c]}"></div></div><div class="stat-count">${ee[c]}</div></div>`).join('')}</div></div>`;const mH=`<div class="interp-card" style="margin-bottom:0"><div class="interp-title" style="font-size:0.95rem">${I18n.t('modalities')}</div><div class="stats-bars">${MOD_INDEX.map(c=>`<div class="stat-row"><div class="stat-label" style="color:${MOD_COLORS[c]}">${I18n.modName(c)}</div><div class="stat-bar-bg"><div class="stat-bar-fill" style="width:${(me[c]/tM*100).toFixed(0)}%;background:${MOD_COLORS[c]}"></div></div><div class="stat-count">${me[c]}</div></div>`).join('')}</div></div>`;document.getElementById('elem-modal-section').innerHTML=eH+mH;}
+function renderPlanetsGrid(){const ks=['sol','luna','ascendente','mc','mercurio','venus','marte','jupiter','saturno','urano','neptuno','pluton','nodoNorte','chiron'];document.getElementById('planets-grid').innerHTML=ks.map(k=>{const p=chartData.positions[k];if(!p)return'';return `<div class="planet-card"><div class="planet-header"><span class="planet-glyph" style="color:${p.color}">${p.glyph}</span><span class="planet-name">${p.name}</span>${p.retro?'<span class="retro-badge">℞</span>':''}</div><div class="planet-position">${SIGN_GLYPHS[p.sign]} ${I18n.signName(p.sign)}</div><div class="planet-meta">${Math.floor(p.degInSign)}° · ${I18n.t('house')} ${p.house} · <span style="color:${ELEM_COLORS[canonElem(p.sign)]}">${I18n.elemName(canonElem(p.sign))}</span></div></div>`;}).join('');}
+function renderHousesGrid(){document.getElementById('houses-grid').innerHTML=chartData.houses.map((l,i)=>`<div class="house-item" onclick="showHouseDetail(${i})"><div class="house-num">${I18n.t('house')} ${HOUSE_NAMES_ROM[i]}</div><div class="house-sign">${SIGN_GLYPHS[signOf(l)]} ${I18n.signName(signOf(l))}</div><div class="house-deg">${degMin(l)}°</div></div>`).join('');}
+function showHouseDetail(i){const l=chartData.houses[i],si=signOf(l);const here=Object.values(chartData.positions).filter(p=>p.house===i+1&&p.glyph!=='Asc'&&p.glyph!=='MC');document.getElementById('modal-title').textContent=`${I18n.t('house')} ${HOUSE_NAMES_ROM[i]} — ${I18n.signName(si)}`;document.getElementById('modal-content').innerHTML=`<div class="modal-section"><div class="modal-section-title">${I18n.t('life_area')}</div><p class="modal-text">${I18n.houseMeaning(i)}</p></div><div class="modal-section"><div class="modal-section-title">${I18n.t('cusp')}: ${SIGN_GLYPHS[si]} ${I18n.signName(si)} ${degMin(l)}°</div></div>${here.length>0?`<div class="modal-section"><div class="modal-section-title">${I18n.t('planets_in_house')}</div><p class="modal-text">${here.map(p=>`${p.glyph} <strong>${p.name}</strong> — ${I18n.signName(p.sign)} ${Math.floor(p.degInSign)}°`).join(' · ')}</p></div>`:`<div class="modal-section"><p class="modal-text" style="font-style:italic;opacity:0.7">${I18n.t('no_planets')}</p></div>`}`;document.getElementById('modal-overlay').classList.add('active');}
+function renderAspects(){document.getElementById('aspects-list').innerHTML=chartData.aspects.slice(0,20).map(a=>{const p1=chartData.positions[a.p1],p2=chartData.positions[a.p2];if(!p1||!p2)return'';return `<div class="aspect-item ${a.type}"><span class="aspect-symbol" style="color:${a.color}">${a.sym}</span><span class="aspect-name">${a.name}</span><span class="aspect-planets">${p1.glyph} ${p1.name} — ${p2.glyph} ${p2.name}</span><span class="aspect-orb">${a.orb}°</span></div>`;}).join('');}
+function showPlanetDetail(k){const p=chartData.positions[k],sd=I18n.signDesc(p.sign),mod=canonMod(p.sign),elem=canonElem(p.sign);const pt=I18n.planetText(k)||`${p.name} — ${I18n.signName(p.sign)}`;document.getElementById('modal-title').textContent=`${p.glyph} ${p.name} — ${I18n.signName(p.sign)}`;document.getElementById('modal-content').innerHTML=`<div class="modal-section"><span class="modality-badge badge-${mod==='Cardinal'?'cardinal':mod==='Fixed'?'fixed':'mutable'}">${I18n.modName(mod)}</span>&nbsp;<span style="font-size:0.8rem;color:${ELEM_COLORS[elem]}">● ${I18n.elemName(elem)}</span><p class="modal-text" style="margin-top:0.6rem">${pt}</p></div><div class="modal-section"><div class="modal-section-title">${SIGN_GLYPHS[p.sign]} ${I18n.signName(p.sign)} — ${I18n.t('house')} ${p.house}</div><p class="modal-text"><strong>${I18n.t('keywords_label')}:</strong> ${sd.keywords}</p></div><div class="modal-section"><div class="modal-section-title">${I18n.t('strengths_label')}</div><p class="modal-text">${sd.strengths}</p></div><div class="modal-section"><div class="modal-section-title">${I18n.t('challenges_label')}</div><p class="modal-text">${sd.challenges}</p></div><div class="modal-section"><div class="modal-section-title">${I18n.t('soul_label')}</div><p class="modal-text">${sd.soul}</p></div><div class="modal-section"><div class="modal-section-title">${I18n.t('archetype_label')}</div><p class="modal-text">${sd.archetype}</p></div>`;document.getElementById('modal-overlay').classList.add('active');}
+function closeModal(){document.getElementById('modal-overlay').classList.remove('active');}
+function renderInterpretations(){const p=chartData.positions,sun=p.sol,moon=p.luna,asc=p.ascendente;const ee=chartData._elemEn,me=chartData._modEn;const domE=Object.entries(ee).sort((a,b)=>b[1]-a[1])[0][0],domM=Object.entries(me).sort((a,b)=>b[1]-a[1])[0][0];const lang=I18n.current,inL=lang==='en'?'in':'en',hL=I18n.t('house');document.getElementById('interpretations').innerHTML=`
+  <div class="interp-card"><div class="interp-title">☉ ${I18n.t('sun')} ${inL} ${I18n.signName(sun.sign)} (${hL} ${sun.house}) — ${I18n.t('your_purpose')}</div><div class="interp-text">${lang==='en'?`Your Sun in <strong>${I18n.signName(sun.sign)}</strong> defines you as ${I18n.signDesc(sun.sign).keywords}. In ${hL} ${sun.house}, your purpose unfolds in the area of ${I18n.houseMeaning(sun.house-1).toLowerCase()}.`:`Tu Sol en <strong>${I18n.signName(sun.sign)}</strong> te define como ${I18n.signDesc(sun.sign).keywords}. En la ${hL} ${sun.house}, tu propósito se vive en el área de ${I18n.houseMeaning(sun.house-1).toLowerCase()}.`} <em>${I18n.t('modality')} ${I18n.modName(canonMod(sun.sign))} · ${I18n.t('element')} ${I18n.elemName(canonElem(sun.sign))}.</em></div><button class="expand-btn" onclick="showPlanetDetail('sol')">${I18n.t('expand_info')}</button></div>
+  <div class="interp-card"><div class="interp-title">☽ ${I18n.t('moon')} ${inL} ${I18n.signName(moon.sign)} (${hL} ${moon.house}) — ${I18n.t('your_inner_world')}</div><div class="interp-text">${lang==='en'?`Your Moon in <strong>${I18n.signName(moon.sign)}</strong> reveals you are emotionally ${I18n.signDesc(moon.sign).keywords}. In ${hL} ${moon.house}, your emotions express in the area of ${I18n.houseMeaning(moon.house-1).toLowerCase()}.`:`Tu Luna en <strong>${I18n.signName(moon.sign)}</strong> revela que emocionalmente eres ${I18n.signDesc(moon.sign).keywords}. En la ${hL} ${moon.house}, tus emociones se expresan en el área de ${I18n.houseMeaning(moon.house-1).toLowerCase()}.`}</div><button class="expand-btn" onclick="showPlanetDetail('luna')">${I18n.t('expand_info')}</button></div>
+  <div class="interp-card"><div class="interp-title">↑ ${I18n.t('ascendant')} ${inL} ${I18n.signName(asc.sign)} — ${I18n.t('your_presence')}</div><div class="interp-text">${lang==='en'?`With <strong>${I18n.signName(asc.sign)}</strong> rising, the world perceives you as ${I18n.signDesc(asc.sign).keywords}.`:`Con <strong>${I18n.signName(asc.sign)}</strong> ascendiendo, el mundo te percibe como ${I18n.signDesc(asc.sign).keywords}.`}</div><button class="expand-btn" onclick="showPlanetDetail('ascendente')">${I18n.t('expand_info')}</button></div>
+  <div class="interp-card"><div class="interp-title">✦ ${I18n.t('elemental_profile')}</div><div class="interp-text">${lang==='en'?`Your chart is dominated by <strong style="color:${ELEM_COLORS[domE]}">${I18n.elemName(domE)}</strong> and modality <strong style="color:${MOD_COLORS[domM]}">${I18n.modName(domM)}</strong>. Talk to Selene to dive deeper.`:`Tu carta tiene predominio de <strong style="color:${ELEM_COLORS[domE]}">${I18n.elemName(domE)}</strong> y modalidad <strong style="color:${MOD_COLORS[domM]}">${I18n.modName(domM)}</strong>. Habla con Selene para profundizar.`}</div></div>`;}
+// ═══════ CHAT ═══════
+function buildContext(){const p=chartData.positions;let c=`CARTA NATAL DE ${chartData.name}\n`;const b=chartData.birth;c+=`Nacimiento: ${b.day}/${b.month}/${b.year} ${b.hour}:${String(b.minute).padStart(2,'0')} en ${b.city}\n\nPOSICIONES:\n`;['sol','luna','ascendente','mc','mercurio','venus','marte','jupiter','saturno','urano','neptuno','pluton','nodoNorte','chiron'].forEach(k=>{const pl=p[k];if(pl)c+=`${pl.name}: ${pl.signName} ${Math.floor(pl.degInSign)}° Casa ${pl.house} ${pl.modality} ${pl.element}${pl.retro?' Rx':''}\n`;});c+=`\nCASAS:\n`;chartData.houses.forEach((l,i)=>c+=`Casa ${i+1}: ${SIGNS_BY_LANG[chartData.lang][signOf(l)]} ${degMin(l)}°\n`);c+=`\nASPECTOS:\n`;chartData.aspects.slice(0,15).forEach(a=>{const p1=p[a.p1],p2=p[a.p2];if(p1&&p2)c+=`${p1.name} ${a.name} ${p2.name} (${a.orb}°)\n`;});return c;}
+function initChat(){chatHistory=[];const ee=chartData._elemEn,me=chartData._modEn;const dE=I18n.elemName(Object.entries(ee).sort((a,b)=>b[1]-a[1])[0][0]),dM=I18n.modName(Object.entries(me).sort((a,b)=>b[1]-a[1])[0][0]);const ss=I18n.signName(chartData.positions.sol.sign),ms=I18n.signName(chartData.positions.luna.sign),as=I18n.signName(chartData.positions.ascendente.sign);const g=I18n.current==='en'?`Hello, ${chartData.name} ✦ I'm Selene. Your **Sun in ${ss}**, **Moon in ${ms}** and **Ascendant in ${as}** form a unique trinity. Dominant element: **${dE}**, modality: **${dM}**.\n\nWhat would you like to explore?`:`Hola, ${chartData.name} ✦ Soy Selene. Tu **Sol en ${ss}**, **Luna en ${ms}** y **Ascendente en ${as}** forman una trinidad única. Elemento dominante: **${dE}**, modalidad: **${dM}**.\n\n¿Qué quieres explorar?`;setTimeout(()=>addMessage('assistant',g),300);}
+function addMessage(r,c){const m=document.getElementById('chat-messages'),t=document.getElementById('typing'),d=document.createElement('div');d.className=`msg ${r}`;const lb=r==='assistant'?'Selene':I18n.t('you_label');const f=c.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\*(.*?)\*/g,'<em>$1</em>').replace(/\n/g,'<br>');d.innerHTML=`<div class="msg-label">${lb}</div><div class="msg-bubble">${f}</div>`;m.insertBefore(d,t);m.scrollTop=m.scrollHeight;}
+function sendSuggestion(el){document.getElementById('chat-input').value=el.textContent;sendMessage();}
+async function sendMessage(){const inp=document.getElementById('chat-input'),txt=inp.value.trim();if(!txt)return;inp.value='';inp.style.height='';addMessage('user',txt);chatHistory.push({role:'user',content:txt});const typing=document.getElementById('typing'),btn=document.getElementById('btn-send');typing.classList.add('active');btn.disabled=true;document.getElementById('chat-messages').scrollTop=9999;
+  const key=apiKey||localStorage.getItem('af_key')||'';
+  if(!key){typing.classList.remove('active');addMessage('assistant',I18n.t('error_nokey'));btn.disabled=false;return;}
+  const sys=I18n.current==='en'?`You are Selene, an expert astrologer. You have this natal chart:\n\n${buildContext()}\n\nAlways respond in English, warm and mystical. Use real chart data. Max 3-4 paragraphs.`:`Eres Selene, astróloga experta. Tienes esta carta natal:\n\n${buildContext()}\n\nResponde siempre en español, cálida y mística. Usa los datos reales de la carta. Máximo 3-4 párrafos.`;
+  try{const res=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${key}`},body:JSON.stringify({model:'gpt-4o-mini',max_tokens:1000,temperature:0.8,messages:[{role:'system',content:sys},...chatHistory]})});const data=await res.json();const reply=data.choices?.[0]?.message?.content||I18n.t('error_connection');chatHistory.push({role:'assistant',content:reply});typing.classList.remove('active');addMessage('assistant',reply);}catch(e){typing.classList.remove('active');addMessage('assistant',I18n.t('error_connection'));}btn.disabled=false;}
+function autoResize(el){el.style.height='';el.style.height=Math.min(el.scrollHeight,100)+'px';}
+function resetApp(){document.getElementById('app').classList.remove('active');document.getElementById('landing').style.display='flex';chatHistory=[];chartData=null;window.chartData=null;document.getElementById('chat-messages').innerHTML=`<div class="typing-indicator" id="typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;I18n.renderSuggestions();}
+// INIT
+addEventListener('DOMContentLoaded',()=>{I18n.current=I18n.detect();I18n.apply();updateLangButtons();const sk=localStorage.getItem('af_key');if(sk)document.getElementById('f-apikey').value=sk;});
 </script>
 </body>
 </html>
